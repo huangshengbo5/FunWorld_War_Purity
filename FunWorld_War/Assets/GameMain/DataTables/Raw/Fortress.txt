@@ -1,0 +1,9 @@
+npcid_k		nameid	icon	Type	camp	level	model	avalue_base	Attack_range	skill	fee	build_time
+int		int	string	int	int	int	int	string	int	double	int	int
+"//注释,城的id"	备注	关隘名字	图标	城的类型	阵营1=玩家，2=敌人1，3=敌人2	等级	城模型	基础属性(属性id，值)，(属性id，值)	攻击距离	主动技能	兵力上限	士兵建造时间单位秒
+100010001	城市1	1000016		1	1	1	1001001	"(Att,2),(Hp,10),(Vision,10)"	1			2
+100010002	城市2	1000016		1	2	1	1001001	"(Att,2),(Hp,11),(Vision,10)"	1			2
+100010003	城市3	1000016		1	3	1	1001001	"(Att,2),(Hp,12),(Vision,10)"	1			2
+100010004	城市4	1000016		1	1	2	1001001	"(Att,2),(Hp,13),(Vision,10)"	1			2
+100010005	城市5	1000016		1	2	2	1001001	"(Att,2),(Hp,14),(Vision,10)"	1			2
+100010006	城市5	1000016		1	3	2	1001001	"(Att,2),(Hp,14),(Vision,10)"	1			2

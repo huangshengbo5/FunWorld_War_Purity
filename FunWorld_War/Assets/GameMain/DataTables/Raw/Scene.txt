@@ -1,0 +1,4 @@
+ID		AssetName	BGMusicId
+int		string	int
+		场景名称	
+1	测试场景	FightTest1	1

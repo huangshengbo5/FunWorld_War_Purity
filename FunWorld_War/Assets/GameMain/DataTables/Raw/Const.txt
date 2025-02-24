@@ -1,0 +1,5 @@
+Id		Chinese	parameter1
+int		string	string
+注释	说明	名字	整数参数
+1	普通关卡倒计时时间单位秒	guankadaojishi	120
+2	普通关卡掉星剩余时间，每剩余到这个时间掉1星：格式：时间，时间，时间	guankadiaoxingshijian	"90,60,30"

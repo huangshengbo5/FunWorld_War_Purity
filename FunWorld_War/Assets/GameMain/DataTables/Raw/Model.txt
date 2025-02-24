@@ -1,0 +1,15 @@
+id		model	Stand	Running	Death	zoom
+int		string	string	string	string	string
+	名字备注	模型资源	待机动作	奔跑动作	死亡动作	缩放
+1001001		Archer_A	Stand	Running	Death_1	1
+1001002		Archer_B	Stand	Running	Death_1	1
+1001003		Heavy_Infantry_A	Stand	Running	Death_1	1
+1001004		Heavy_Infantry_B	Stand	Running	Death_1	1
+1001005		Light_Infantry_A	Stand	Running	Death_1	1
+1001006		Light_Infantry_B	Stand	Running	Death_1	1
+1001007		Mage_A	Stand	Running	Death_1	1
+1001008		Mage_B	Stand	Running	Death_1	1
+1001009		Priest_A	Stand	Running	Death_1	1
+1001010		Priest_B	Stand	Running	Death_1	1
+1001011		Spearman_A	Stand	Running	Death_1	1
+1001012		Spearman_B	Stand	Running	Death_1	1

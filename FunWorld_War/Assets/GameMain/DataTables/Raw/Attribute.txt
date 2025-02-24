@@ -1,0 +1,9 @@
+Id	ValueName		Type	ShowNameID	Icon
+int	string		int	int	int
+属性id	属性名字注释 属性类型1=固定值2=万分比	属性名字文本Multilingual的id	属性图标图标名字或路径		
+1001	Att	攻击	1	1000005	0
+1002	Hp	生命	1	1000006	0
+1003	Speed	速度	1	1000007	0
+1004	Vision	视野	1	1000008	0
+2001	Att_ExtraPer	攻击百分比	2	1000009	0
+2002	HP_ExtraPer	生命百分比	2	1000010	0
