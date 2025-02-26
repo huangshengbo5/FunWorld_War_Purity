@@ -51,7 +51,20 @@ public class GameMode_Survival : GameBase
         {
             var TargetTown = clickEventArgs.Town;
             var town = CurOperateTown as Town;
-            town.AttackTargetTown(TargetTown);
+            if (TargetTown && town)
+            {
+                town.AttackTargetTown(TargetTown);    
+            }
+            if (!town)
+            {
+                Debug.LogError("请选择一个出兵城池！");    
+            }
+
+            if (!TargetTown)
+            {
+                Debug.LogError("请选择一个目标城池！");
+            }
+            
         }
     }
 
