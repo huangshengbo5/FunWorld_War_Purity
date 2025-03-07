@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class Attribute 
+public class Attribute : System.Attribute
 {
     // private float Hp;
     // private float Hp_Percent;
