@@ -62,9 +62,8 @@ namespace EGamePlay
         public ParticleEffectData ParticleEffectData;
 #endif
 
-        [ShowIf("ExecuteClipType", ExecuteClipType.ItemExecute), LabelText("����Ч��"), Space(30)]
-        //[ListDrawerSettings(DefaultExpandedState = true, DraggableItems = false, ShowItemCount = false, HideAddButton = true)]
-        [ListDrawerSettings( DraggableItems = false, ShowItemCount = false, HideAddButton = true)]
+        [ShowIf("ExecuteClipType", ExecuteClipType.ItemExecute), LabelText("表现效果"), Space(30)]
+        [ListDrawerSettings(DefaultExpandedState = true, DraggableItems = false, ShowItemCount = false, HideAddButton = true)]
         [HideReferenceObjectPicker]
         public List<ItemEffect> EffectDatas = new List<ItemEffect>();
 
@@ -72,9 +71,9 @@ namespace EGamePlay
         [OnInspectorGUI("BeginBox", append: false)]
         [HorizontalGroup(PaddingLeft = 40, PaddingRight = 40)]
         [HideLabel, OnValueChanged("AddEffect"), ValueDropdown("EffectTypeSelect"), JsonIgnore]
-        public string EffectTypeName = "(����Ч��)";
+        public string EffectTypeName = "(添加效果)";
 
-        //[LabelText("������"), Space(30)]
+        //[LabelText("触发点"), Space(30)]
         //[ListDrawerSettings(DefaultExpandedState = true, DraggableItems = true, ShowItemCount = false, CustomAddFunction = "AddTrigger")]
         //[HideReferenceObjectPicker]
         //public List<ItemTriggerConfig> TriggerActions = new List<ItemTriggerConfig>();
@@ -89,13 +88,13 @@ namespace EGamePlay
                 .Select(x => x.GetCustomAttribute<EffectAttribute>().EffectType);
 
             var results = types.ToList();
-            results.Insert(0, "(����Ч��)");
+            results.Insert(0, "(添加效果)");
             return results;
         }
 
         private void AddEffect()
         {
-            if (EffectTypeName != "(����Ч��)")
+            if (EffectTypeName != "(添加效果)")
             {
                 var effectType = typeof(ItemEffect).Assembly.GetTypes()
                     .Where(x => !x.IsAbstract)
@@ -106,7 +105,7 @@ namespace EGamePlay
                 var effect = Activator.CreateInstance(effectType) as ItemEffect;
                 effect.Enabled = true;
                 EffectDatas.Add(effect);
-                EffectTypeName = "(����Ч��)";
+                EffectTypeName = "(添加效果)";
             }
         }
 
@@ -152,39 +151,39 @@ namespace EGamePlay
         ParticleEffect = 4,
     }
 
-    [LabelText("Ŀ�괫������")]
+    [LabelText("目标传入类型")]
     public enum ExecutionTargetInputType
     {
         [LabelText("None")]
         None = 0,
-        [LabelText("����Ŀ��ʵ��")]
+        [LabelText("传入目标实体")]
         Target = 1,
-        [LabelText("����Ŀ���")]
+        [LabelText("传入目标点")]
         Point = 2,
     }
 
-    [LabelText("�¼�����")]
+    [LabelText("事件类型")]
     public enum FireEventType
     {
-        [LabelText("��������Ч��")]
+        [LabelText("触发赋给效果")]
         AssignEffect = 0,
-        [LabelText("������ִ����")]
+        [LabelText("触发新执行体")]
         TriggerNewExecution = 1,
-        //[LabelText("��������Ч��")]
+        //[LabelText("触发防御效果")]
         //TriggerDefenseEffect = 2,
     }
 
-    [LabelText("��������"), Flags]
+    [LabelText("触发类型"), Flags]
     public enum FireType
     {
         None = 0,
-        [LabelText("��ʼ����")]
+        [LabelText("初始触发")]
         StartTrigger = 1 << 1,
-        [LabelText("��ײ��������")]
+        [LabelText("碰撞触发单次")]
         CollisionTrigger = 1 << 2,
-        [LabelText("��������")]
+        [LabelText("结束触发")]
         EndTrigger = 1 << 3,
-        [LabelText("��ײ�������")]
+        [LabelText("碰撞触发多次")]
         CollisionTriggerMultiple = 1 << 4,
     }
 
@@ -215,37 +214,37 @@ namespace EGamePlay
         }
 
         [ShowIf("IsTriggerAssign")]
-        [LabelText("��������Ч��")]
+        [LabelText("主动触发效果")]
         public ExecuteTriggerType ExecuteTrigger;
 
         [ShowIf("IsTriggerAssign")]
         public EffectApplyTarget EffectApplyTarget;
 
         [ShowIf("IsTriggerExecution")]
-        [LabelText("��ִ����")]
+        [LabelText("新执行体")]
         public string NewExecution;
     }
 
     public enum CollisionExecuteType
     {
-        [LabelText("����ִ��")]
+        [LabelText("脱手执行")]
         OutOfHand = 0,
-        [LabelText("ִ��ִ��")]
+        [LabelText("执手执行")]
         InHand = 1,
     }
 
     public enum CollisionExecuteTargetType
     {
-        [LabelText("�з�")]
+        [LabelText("敌方")]
         EnemyGroup = 0,
-        [LabelText("����")]
+        [LabelText("己方")]
         SelfGroup = 1,
     }
 
     [Serializable]
     public class ItemExecute
     {
-        [LabelText("ִ������")]
+        [LabelText("执行类型")]
         public CollisionExecuteType ExecuteType;
         [HideInInspector]
         public ActionEventData ActionData;
@@ -253,7 +252,7 @@ namespace EGamePlay
         //[Space(10)]
         //[HideInInspector]
         //public CollisionShape Shape;
-        //[ShowIf("Shape", CollisionShape.Sphere), LabelText("�뾶")]
+        //[ShowIf("Shape", CollisionShape.Sphere), LabelText("半径")]
         //[HideInInspector]
         //public double Radius;
 
@@ -283,7 +282,7 @@ namespace EGamePlay
         [ShowIf("ShowPoints")]
         public PathExecutePoint PathExecutePoint = PathExecutePoint.EntityOffset;
         [ShowIf("ShowPoints")]
-        [LabelText("ƫ��")]
+        [LabelText("偏移")]
         public Vector3 Offset;
 
         public List<BezierPoint3D> GetCtrlPoints()

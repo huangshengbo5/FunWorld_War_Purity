@@ -22,7 +22,7 @@ using UnityEngine.UI;
 
 namespace EGamePlay.Combat
 {
-    [CreateAssetMenu(fileName = "Execution", menuName = "????/Execution")]
+    [CreateAssetMenu(fileName = "Execution", menuName = "能力/Execution")]
     public class ExecutionObject
 #if UNITY
  : ScriptableObject
@@ -48,15 +48,15 @@ namespace EGamePlay.Combat
         public GameObject ObjAsset;
         public ExecutionTargetInputType TargetInputType;
         [ShowIf("TargetInputType", ExecutionTargetInputType.Point)]
-        [LabelText("??��????"), JsonIgnore]
+        [LabelText("范围指示器"), JsonIgnore]
         public GameObject RangeIndicatorObjAsset;
         [ShowIf("TargetInputType", ExecutionTargetInputType.Point)]
-        [LabelText("????????"), JsonIgnore]
+        [LabelText("目标点指示器"), JsonIgnore]
         public GameObject PointIndicatorObjAsset;
         [ShowIf("TargetInputType", ExecutionTargetInputType.Point)]
-        [LabelText("????????"), JsonIgnore]
+        [LabelText("朝向指示器"), JsonIgnore]
         public GameObject DirectionIndicatorObjAsset;
-        [LabelText("??????????")]
+        [LabelText("起始坐标偏移")]
         public Vector3 Offset;
 
         [ReadOnly, Space(10)]
