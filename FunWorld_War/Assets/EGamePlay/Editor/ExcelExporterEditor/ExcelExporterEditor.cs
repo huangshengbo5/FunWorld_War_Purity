@@ -64,6 +64,10 @@ namespace ET
                 {
                     this.isClient = true;
                     Log.Debug($"{ExcelPath}");
+                    if (!Directory.Exists(clientPath))
+                    {
+                        Directory.CreateDirectory(clientPath);
+                    }
                     ExportAll(clientPath);
 
                     ExportAllClass(@"./Assets/EGamePlay/Config/Scripts", "namespace ET\n{\n");//using MongoDB.Bson.Serialization.Attributes;\n\n
@@ -118,7 +122,10 @@ namespace ET
             }
 
             string protoName = Path.GetFileNameWithoutExtension(fileName);
-
+            if (!Directory.Exists(exportDir))
+            {
+                Directory.CreateDirectory(exportDir);
+            }
             string exportPath = Path.Combine(exportDir, $"{protoName}.cs");
             using (FileStream txt = new FileStream(exportPath, FileMode.Create))
             using (StreamWriter sw = new StreamWriter(txt))
@@ -218,7 +225,8 @@ namespace ET
                 Export(filePath, exportDir);
             }
 
-            File.WriteAllText(md5File, JsonHelper.ToJson(this.md5Info));
+            // var jsonInfo = JsonHelper.ToJson(this.md5Info);
+            // File.WriteAllText(md5File, jsonInfo);
 
             Log.Info("所有表导表完成");
             AssetDatabase.Refresh();
