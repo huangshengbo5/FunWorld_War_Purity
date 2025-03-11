@@ -63,7 +63,7 @@ namespace EGamePlay
 #endif
 
         [ShowIf("ExecuteClipType", ExecuteClipType.ItemExecute), LabelText("表现效果"), Space(30)]
-        [ListDrawerSettings(DefaultExpandedState = true, DraggableItems = false, ShowItemCount = false, HideAddButton = true)]
+        [ListDrawerSettings(DraggableItems = false, ShowItemCount = false, HideAddButton = true)]
         [HideReferenceObjectPicker]
         public List<ItemEffect> EffectDatas = new List<ItemEffect>();
 
