@@ -102,7 +102,7 @@ namespace EGamePlay
             }
 
             SliderRight.value = (float)TrackClipData.GetClipTime().EndTime / (float)TrackClipData.TotalTime;
-            SliderLeft.value = (float)TrackClipData.GetClipTime().StartTime / (float)TrackClipData.TotalTime;
+            SliderLeft.value =  (float)TrackClipData.GetClipTime().StartTime / (float)TrackClipData.TotalTime;
             SetDragEvent();
         }
 
@@ -284,7 +284,9 @@ namespace EGamePlay
             //if (TrackClipType == TrackClipType.Action)
             {
                 var p = LeftLine.anchoredPosition3D;
-                LeftLine.anchoredPosition3D = new Vector2(SliderLeft.value * panelWidth, p.y);
+                p.x = SliderLeft.value * panelWidth;
+                //LeftLine.anchoredPosition3D = new Vector2(SliderLeft.value * panelWidth, p.y);
+                LeftLine.anchoredPosition3D = p;
                 //Debug.Log($"{SliderLeft.value * panelWidth}");
             }
         }

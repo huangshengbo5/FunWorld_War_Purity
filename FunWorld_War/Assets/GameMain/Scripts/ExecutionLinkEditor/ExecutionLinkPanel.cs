@@ -37,6 +37,9 @@ namespace EGamePlay
         public Transform ContentTrm;
         public Transform Button;
 
+        public CombatEntity HeroEntity;
+
+        public CombatEntity BossEntity;
         //public Unit Unit { get; set; }
         //public Unit Monster { get; set; }
         //public CastConfig CurrentSkillConfig { get; set; }
@@ -49,8 +52,7 @@ namespace EGamePlay
         public string CurrentExecutionAssetPath { get; set; }
         public ExecutionObject CurrentExecutionObject { get; set; }
         public ExecuteClipData CurrentExecutionClip { get; set; }
-        public CombatEntity HeroEntity { get; set; }
-        public CombatEntity BossEntity { get; set; }
+      
 
 
         // Start is called before the first frame update

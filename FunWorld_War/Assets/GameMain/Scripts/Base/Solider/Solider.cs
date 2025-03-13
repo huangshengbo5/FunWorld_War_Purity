@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
+using EGamePlay.Combat;
 using GameFramework.Resource;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -81,6 +83,11 @@ public partial class Solider : BaseObject
     {
         get => ownerSoliderCommander;
         set => ownerSoliderCommander = value;
+    }
+
+    private void Start()
+    {
+        Start_Skill();
     }
 
     public override ObjectType ObjectType()

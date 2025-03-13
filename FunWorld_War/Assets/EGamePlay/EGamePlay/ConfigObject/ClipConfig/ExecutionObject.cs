@@ -43,7 +43,7 @@ namespace EGamePlay.Combat
         string name;
 #endif
 
-        public double TotalTime;
+        public double TotalTime = 1f;
         [DelayedProperty, JsonIgnore]
         public GameObject ObjAsset;
         public ExecutionTargetInputType TargetInputType;
