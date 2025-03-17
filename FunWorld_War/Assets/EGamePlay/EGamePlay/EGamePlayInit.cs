@@ -1,4 +1,5 @@
-﻿using EGamePlay;
+﻿using System.Data;
+using EGamePlay;
 using EGamePlay.Combat;
 using ET;
 using System.Threading;
@@ -10,6 +11,7 @@ public class EGamePlayInit : SerializedMonoBehaviour
 {
     public static EGamePlayInit Instance { get; private set; }
     public ReferenceCollector ConfigsCollector;
+    public DataTableCollector DataTableCollector;
     public bool EntityLog;
 
 #if !EGAMEPLAY_ET

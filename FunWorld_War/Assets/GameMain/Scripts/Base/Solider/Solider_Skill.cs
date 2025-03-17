@@ -22,7 +22,9 @@ public partial class Solider
         CombatEntity.CurrentHealth.Minus(30000);
         
         CombatEntity.GetComponent<SpellComponent>().LoadExecutionObjects();
-        
+
+        //加载技能表和士兵进行绑定
+        //GameEntry.DataTable.GetDataTable<>();
         var ExecutionLinkPanelObj = GameObject.Find("ExecutionLinkPanel");
         if (ExecutionLinkPanelObj != null)
         {
@@ -98,7 +100,7 @@ public partial class Solider
         // GameObject.Destroy(cureText.gameObject, 0.5f);
     }
 
-    //增加状态
+    //??????
     private void OnReceiveStatus(Entity combatAction)
     {
         //var action = combatAction as AddStatusAction;
@@ -133,7 +135,7 @@ public partial class Solider
         //}
     }
 
-    //结束状态
+    //??????
     private void OnRemoveStatus(RemoveStatusEvent eventData)
     {
         //if (name == "Monster")
