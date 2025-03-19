@@ -70,4 +70,8 @@ public static class AssetUtility
     {
         return Utility.Text.Format("Assets/GameMain/Res/Prefab/Model/{0}.prefab", assetName);
     }
+    public static string GetSoliderModelAsset()
+    {
+        return GetModelAsset("Solider");
+    }
 }

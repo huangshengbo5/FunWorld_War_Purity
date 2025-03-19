@@ -4,13 +4,22 @@
     using System.Collections.Generic;
     using Sirenix.OdinInspector;
 
-    [LabelText("技能类型")]
+    [LabelText("技能释放类型")]
     public enum SkillSpellType
     {
         [LabelText("主动技能")]
         Initiative,
         [LabelText("被动技能")]
         Passive,
+    }
+
+    [LabelText("技能类型")]
+    public enum SkillType
+    {
+        [LabelText("技能")]
+        Skill = 1,
+        [LabelText("Buff")]
+        Buff,
     }
 
     [LabelText("目标选取类型")]

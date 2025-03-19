@@ -1,5 +1,6 @@
 using EGamePlay;
 using EGamePlay.Combat;
+using ET;
 using UnityEngine;
 
 public partial class Solider
@@ -23,8 +24,19 @@ public partial class Solider
         
         CombatEntity.GetComponent<SpellComponent>().LoadExecutionObjects();
 
-        //¼ÓÔØ¼¼ÄÜ±íºÍÊ¿±ø½øĞĞ°ó¶¨
-        //GameEntry.DataTable.GetDataTable<>();
+        //todo  åŠ è½½æŠ€èƒ½é…ç½®
+        var abilityConfig = GameEntry.DataTable.GetDataTable<DRAbilityConfig>();
+        foreach (var abilityItem in abilityConfig)
+        {
+            if (abilityItem.Type == (int)SkillType.Skill)
+            {
+                var skillId = abilityItem.Id;
+                var skillConfigObjectPath = $"{AbilityManagerObject.SkillResFolder}/Skill_{skillId}";
+                var configObj = GameUtils.AssetUtils.LoadObject<AbilityConfigObject>(skillConfigObjectPath);
+                var ability = CombatEntity.GetComponent<SkillComponent>().AttachSkill(configObj);
+            }
+        }
+        
         var ExecutionLinkPanelObj = GameObject.Find("ExecutionLinkPanel");
         if (ExecutionLinkPanelObj != null)
         {
@@ -100,7 +112,7 @@ public partial class Solider
         // GameObject.Destroy(cureText.gameObject, 0.5f);
     }
 
-    //??????
+    //æ”¶åˆ°çŠ¶æ€æ”¹å˜
     private void OnReceiveStatus(Entity combatAction)
     {
         //var action = combatAction as AddStatusAction;
@@ -135,7 +147,7 @@ public partial class Solider
         //}
     }
 
-    //??????
+    //è§£é™¤ä¸€ä¸ªçŠ¶æ€
     private void OnRemoveStatus(RemoveStatusEvent eventData)
     {
         //if (name == "Monster")

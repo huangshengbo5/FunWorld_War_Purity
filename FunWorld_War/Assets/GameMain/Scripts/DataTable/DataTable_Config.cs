@@ -13,5 +13,6 @@ public static class DataTable_Config
         "Attribute",  //属性表
         "Model",
         "Fortress",
+        "AbilityConfig",  //技能表
     };
 }

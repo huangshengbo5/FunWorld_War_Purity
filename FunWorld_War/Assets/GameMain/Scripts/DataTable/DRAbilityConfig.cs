@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-03-18 15:52:53.846
+// 生成时间：2025-03-18 15:52:53.871
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 //namespace __DATA_TABLE_NAME_SPACE__
 //{
     /// <summary>
-    /// ValueName。
+    /// KeyName。
     /// </summary>
-    public class DRAttribute : DataRowBase
+    public class DRAbilityConfig : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取属性id。
+        /// 获取Id。
         /// </summary>
         public override int Id
         {
@@ -37,16 +37,34 @@ using UnityGameFramework.Runtime;
         }
 
         /// <summary>
-        /// 获取属性名字注释 属性类型1=固定值2=万分比。
+        /// 获取KeyName。
         /// </summary>
-        public string ValueName
+        public string KeyName
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取属性图标图标名字或路径。
+        /// 获取名字。
+        /// </summary>
+        public string Name
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取技能描述。
+        /// </summary>
+        public string Description
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取能力类型 1：技能， 2：Buff。
         /// </summary>
         public int Type
         {
@@ -55,18 +73,36 @@ using UnityGameFramework.Runtime;
         }
 
         /// <summary>
-        /// 获取。
+        /// 获取目标阵营 1：敌方，2：己方，3：自身。
         /// </summary>
-        public int ShowNameID
+        public int TargetGroup
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取。
+        /// 获取目标选择方式 1:无  2：手动指定，3：碰撞检测, 4: 条件指定。
         /// </summary>
-        public int Icon
+        public int TargetSelect
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取冷却时间。
+        /// </summary>
+        public float Cooldown
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取Buff类型  1：None  2：虚弱，3 ：强化。
+        /// </summary>
+        public int BuffType
         {
             get;
             private set;
@@ -82,11 +118,14 @@ using UnityGameFramework.Runtime;
 
             int index = 0;
             m_Id = int.Parse(columnStrings[index++]);
-            ValueName = columnStrings[index++];
-            index++;
+            KeyName = columnStrings[index++];
+            Name = columnStrings[index++];
+            Description = columnStrings[index++];
             Type = int.Parse(columnStrings[index++]);
-            ShowNameID = int.Parse(columnStrings[index++]);
-            Icon = int.Parse(columnStrings[index++]);
+            TargetGroup = int.Parse(columnStrings[index++]);
+            TargetSelect = int.Parse(columnStrings[index++]);
+            Cooldown = float.Parse(columnStrings[index++]);
+            BuffType = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -99,10 +138,14 @@ using UnityGameFramework.Runtime;
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    ValueName = binaryReader.ReadString();
+                    KeyName = binaryReader.ReadString();
+                    Name = binaryReader.ReadString();
+                    Description = binaryReader.ReadString();
                     Type = binaryReader.Read7BitEncodedInt32();
-                    ShowNameID = binaryReader.Read7BitEncodedInt32();
-                    Icon = binaryReader.Read7BitEncodedInt32();
+                    TargetGroup = binaryReader.Read7BitEncodedInt32();
+                    TargetSelect = binaryReader.Read7BitEncodedInt32();
+                    Cooldown = binaryReader.ReadSingle();
+                    BuffType = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

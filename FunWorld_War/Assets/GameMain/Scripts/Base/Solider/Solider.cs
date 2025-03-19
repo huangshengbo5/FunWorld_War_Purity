@@ -3,6 +3,7 @@ using System.Collections;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
 using EGamePlay.Combat;
+using GameFramework;
 using GameFramework.Resource;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,7 +11,7 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(BehaviorTree))]
-public partial class Solider : BaseObject
+public partial class Solider : BaseObject,IReference
 {
     private int soliderId;
 
@@ -354,5 +355,10 @@ public partial class Solider : BaseObject
     public BaseObject FindEnemy()
     {
         return OwnerSoliderCommander.SoliderFindTarget(this);
+    }
+
+    public void Clear()
+    {
+        throw new NotImplementedException();
     }
 }

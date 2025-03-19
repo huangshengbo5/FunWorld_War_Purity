@@ -1,7 +1,7 @@
-using System;
+using System;using GameFramework.ObjectPool;
 using UnityEngine;
 
-public class BaseObject : MonoBehaviour
+public class BaseObject :  MonoBehaviour
 {
     public int MaxHp;
     private int Id;
