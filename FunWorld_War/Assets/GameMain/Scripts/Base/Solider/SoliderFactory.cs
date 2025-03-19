@@ -6,6 +6,12 @@ using UnityEngine.PlayerLoop;
 
 public class SoliderFactory
 {
+    public class SoliderConfig
+    {
+        public int soliderId;
+        public Vector3 position;
+        public Vector3 size;
+    }
     private int m_InstancePoolCapacity = 16;
     private GameObject m_SoliderTempate;
     private IObjectPool<SoliderPoolItem> m_SoliderObjectPool = null;
@@ -37,4 +43,6 @@ public class SoliderFactory
         }
         return solider;
     }
+    
+    
 }
