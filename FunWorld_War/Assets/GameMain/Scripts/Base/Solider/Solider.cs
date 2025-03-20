@@ -5,16 +5,18 @@ using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
 using EGamePlay.Combat;
 using GameFramework;
 using GameFramework.Resource;
+using Script.Game.Base.Animator;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(BehaviorTree))]
 public partial class Solider : BaseObject,IReference
 {
     private int soliderId;
-
+    public Transform transModel;
     public int SoliderId
     {
         get => soliderId;
@@ -100,10 +102,39 @@ public partial class Solider : BaseObject,IReference
     {
         CurHp = MaxHp;
         InitBehaviorTree();
-        InitComponent();
+        //InitComponent();
         isKill = false;
         soliderHUD.Init(this);
         soliderHUD.UpdatgeHP(CurHp,MaxHp);
+    }
+
+    public void Init(int soliderId)
+    {
+        Init_Model(soliderId);
+        Init();
+    }
+
+    public void Init_Model(int soldierId)
+    {
+        var modelConfig = GameEntry.DataTable.GetDataTable<DRModel>().GetDataRow(soliderId);
+        if (modelConfig != null)
+        {
+            var modelPath = AssetUtility.GetModelAsset(modelConfig.model);
+            var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
+            {
+                var modelObj = Instantiate((GameObject)asset);
+                modelObj.transform.SetParent(this.transModel);
+                modelObj.transform.localPosition = Vector3.zero;
+                modelObj.transform.localScale = Vector3.one;
+                modelObj.transform.localRotation = Quaternion.identity;
+                var modelAni = modelObj.GetComponent<AnimationEvent_Solider>();
+                modelAni.solider = this;
+                Animator = modelObj.GetComponent<Animator>();
+                
+            }, null, null, null);
+            GameEntry.Resource.LoadAsset(modelPath, m_LoadAssetCallbacks);
+        }
+        navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
     }
     
     //初始化组件信息

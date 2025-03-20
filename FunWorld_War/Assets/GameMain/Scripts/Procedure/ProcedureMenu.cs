@@ -6,11 +6,13 @@ public class ProcedureMenu : ProcedureBase
 {
     private bool m_StartGame = false;
     private MenuForm m_MenuForm = null;
+    private int sceneId;
 
     public override bool UseNativeDialog => false;
 
-    public void StartGame()
+    public void StartGame(int sceneId)
     {
+        this.sceneId = sceneId;
         m_StartGame = true;
     }
 
@@ -43,8 +45,12 @@ public class ProcedureMenu : ProcedureBase
 
         if (m_StartGame)
         {
-            procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Main"));
-            procedureOwner.SetData<VarByte>("GameMode", (byte)GameMode.Survival);
+            //procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Main"));
+            procedureOwner.SetData<VarInt32>("NextSceneId", sceneId);
+            if (sceneId == GameEntry.Config.GetInt("Scene.Main"))
+            {
+                procedureOwner.SetData<VarByte>("GameMode", (byte)GameMode.Survival);
+            }
             ChangeState<ProcedureChangeScene>(procedureOwner);
         }
     }

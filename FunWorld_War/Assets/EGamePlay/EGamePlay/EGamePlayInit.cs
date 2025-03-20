@@ -4,39 +4,18 @@ using EGamePlay.Combat;
 using ET;
 using System.Threading;
 using Sirenix.OdinInspector;
+using UnityGameFramework.Runtime;
+using Entity = EGamePlay.Entity;
 
 
 #if UNITY
 public class EGamePlayInit : SerializedMonoBehaviour
 {
-    public static EGamePlayInit Instance { get; private set; }
-    public ReferenceCollector ConfigsCollector;
-    public DataTableCollector DataTableCollector;
-    public bool EntityLog;
+    public static DataTableComponent DataTable;
 
-#if !EGAMEPLAY_ET
     private void Awake()
     {
-        Instance = this;
-        SynchronizationContext.SetSynchronizationContext(ThreadSynchronizationContext.Instance);
-        Entity.EnableLog = EntityLog;
-        var ecsNode = ECSNode.Create();
-        ecsNode.AddChild<TimerManager>();
-        ecsNode.AddChild<CombatContext>();
-        ecsNode.AddComponent<ConfigManageComponent>(ConfigsCollector);
+        DataTable = UnityGameFramework.Runtime.GameEntry.GetComponent<DataTableComponent>();
     }
-
-    private void Update()
-    {
-        ThreadSynchronizationContext.Instance.Update();
-        ECSNode.Instance.Update();
-        TimerManager.Instance.Update();
-    }
-
-    private void OnApplicationQuit()
-    {
-        ECSNode.Destroy();
-    }
-#endif
 }
 #endif

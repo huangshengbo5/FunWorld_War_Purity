@@ -106,7 +106,7 @@ namespace EGamePlay
                 if (SkillTimeImage.fillAmount >= 1)
                 {
                     IsPlaying = false;
-                    PlayButton.GetComponentInChildren<Text>().text = "????";
+                    PlayButton.GetComponentInChildren<Text>().text = "ֹͣ";
                 }
             }
 

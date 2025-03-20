@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
@@ -7,6 +8,9 @@ public class MenuForm : UIFormLogic
     [SerializeField]
     private Button Btn_Survival;
 
+    [SerializeField]
+    private Button Btn_AbilityTest;
+    
     private ProcedureMenu ProcedureMenu;
 
     protected override void OnInit(object userData)
@@ -14,11 +18,17 @@ public class MenuForm : UIFormLogic
         base.OnInit(userData);
         ProcedureMenu = userData as ProcedureMenu;
         Btn_Survival.onClick.AddListener(OnBtnSurvivalClick);
+        Btn_AbilityTest.onClick.AddListener(OnBtnAbilityTestClick);
     }
-    
+
+    public void OnBtnAbilityTestClick()
+    { 
+        ProcedureMenu.StartGame(2);
+    }
+
     public void OnBtnSurvivalClick()
     {
-        ProcedureMenu.StartGame();
+        ProcedureMenu.StartGame(GameEntry.Config.GetInt("Scene.Main"));
     }
     
     protected override void OnOpen(object userData)

@@ -10,7 +10,7 @@ public class SoliderFactory
     {
         public int soliderId;
         public Vector3 position;
-        public Vector3 size;
+        public Vector3 size = Vector3.one;
     }
     private int m_InstancePoolCapacity = 16;
     private GameObject m_SoliderTempate;
@@ -26,8 +26,8 @@ public class SoliderFactory
         GameEntry.Resource.LoadAsset(SoliderPath, m_LoadAssetCallbacks);
         m_SoliderObjectPool = GameEntry.ObjectPool.CreateSingleSpawnObjectPool<SoliderPoolItem>();
     }
-
-    public Solider Create(Object obj)
+    
+    public Solider Create(SoliderConfig soliderConfig)
     {
         Solider solider = null;
         SoliderPoolItem soliderPoolItem = m_SoliderObjectPool.Spawn();
@@ -41,8 +41,9 @@ public class SoliderFactory
             solider = gameObject.GetComponent<Solider>();
             m_SoliderObjectPool.Register(SoliderPoolItem.Create(solider),true);
         }
+        solider.gameObject.transform.position = soliderConfig.position;
+        solider.gameObject.transform.localScale = soliderConfig.size;
+        solider.Init(soliderConfig.soliderId);
         return solider;
     }
-    
-    
 }
