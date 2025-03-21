@@ -45,13 +45,19 @@ public class ProcedureMenu : ProcedureBase
 
         if (m_StartGame)
         {
+            //GameEntry.UI.CloseUIForm(UIFormId.MenuForm);
             //procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Main"));
             procedureOwner.SetData<VarInt32>("NextSceneId", sceneId);
             if (sceneId == GameEntry.Config.GetInt("Scene.Main"))
             {
                 procedureOwner.SetData<VarByte>("GameMode", (byte)GameMode.Survival);
             }
+            else if(sceneId == 2)
+            {
+                procedureOwner.SetData<VarByte>("GameMode",(byte)GameMode.AbilityTest);
+            }
             ChangeState<ProcedureChangeScene>(procedureOwner);
+            
         }
     }
 

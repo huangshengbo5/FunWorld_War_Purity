@@ -22,14 +22,17 @@ public class GameMode_Survival : GameBase
     public override GameMode GameMode => GameMode.Survival;
     
     public Town CurOperateTown;
+    
 
     public override void Initialize()
     {
         base.Initialize();
+        GameEntry.UI.OpenUIForm(UIFormId.BattleMainForm);
         GameEntry.Event.Subscribe(BattleClickTargetTownEventArgs.EventId,HandlerBattleClickTargetTown);
         GameEntry.Event.Subscribe(BattleClickPlayerTownEventArgs.EventId,HandlerBattleClickPlayerTown);
         GameEntry.Event.Subscribe(BattleSingleTownResultEventArgs.EventId,HandlerOnSingleTownResult); 
         GameEntry.Event.Fire(this,GameStartEventArgs.Create());
+        BattleManager.Instance().Initialize();
     }
 
     public override void Shutdown()

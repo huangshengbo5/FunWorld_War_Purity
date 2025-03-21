@@ -23,6 +23,7 @@ public class ProcedureMain : ProcedureBase
     {
         base.OnInit(procedureOwner);
         m_Games.Add(GameMode.Survival, new GameMode_Survival());
+        m_Games.Add(GameMode.AbilityTest,new GameMode_AbilityTest());
     }
 
     protected override void OnDestroy(ProcedureOwner procedureOwner)
@@ -38,12 +39,10 @@ public class ProcedureMain : ProcedureBase
 
         m_GotoMenu = false;
         //todo 设置不同玩法
-        procedureOwner.SetData<VarByte>("GameMode",(int)GameMode.Survival);
+        //procedureOwner.SetData<VarByte>("GameMode",(int)GameMode.Survival);
         GameMode gameMode = (GameMode)procedureOwner.GetData<VarByte>("GameMode").Value;
         m_CurrentGame = m_Games[gameMode];
         m_CurrentGame.Initialize();
-        
-        GameEntry.UI.OpenUIForm(UIFormId.BattleMainForm);
     }
 
     protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -65,9 +64,6 @@ public class ProcedureMain : ProcedureBase
             m_CurrentGame.Update(elapseSeconds, realElapseSeconds);
             return;
         }
-
-      
-
         if (!m_GotoMenu)
         {
             //m_GotoMenu = true;
@@ -86,5 +82,4 @@ public class ProcedureMain : ProcedureBase
     {
         return m_CurrentGame;
     }
-    
 }

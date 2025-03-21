@@ -11,6 +11,13 @@ public class SoliderFactory
         public int soliderId;
         public Vector3 position;
         public Vector3 size = Vector3.one;
+
+        public SoliderConfig(int soliderId, Vector3 position , Vector3 scale)
+        {
+            this.soliderId = soliderId;
+            this.position = position;
+            this.size = scale;
+        }
     }
     private int m_InstancePoolCapacity = 16;
     private GameObject m_SoliderTempate;
@@ -40,6 +47,7 @@ public class SoliderFactory
             var gameObject = GameObject.Instantiate(m_SoliderTempate);
             solider = gameObject.GetComponent<Solider>();
             m_SoliderObjectPool.Register(SoliderPoolItem.Create(solider),true);
+            gameObject.name = $"Solider_{soliderConfig.soliderId}";
         }
         solider.gameObject.transform.position = soliderConfig.position;
         solider.gameObject.transform.localScale = soliderConfig.size;

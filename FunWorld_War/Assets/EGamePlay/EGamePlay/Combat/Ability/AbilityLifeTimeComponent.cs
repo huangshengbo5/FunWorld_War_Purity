@@ -33,12 +33,12 @@ namespace EGamePlay.Combat
         private void OnLifeTimeFinish()
         {
             var ability = GetEntity<Ability>();
-            var config = GetEntity<Ability>().Config;
-            if (config.Type == "Skill")
+            var config = GetEntity<Ability>().DRConfig;
+            if (config.Type == (int)SkillType.Skill)
             {
                 ability.ParentEntity.GetComponent<SkillComponent>().RemoveSkill(ability);
             }
-            if (config.Type == "Buff")
+            if (config.Type == (int)SkillType.Buff)
             {
                 ability.ParentEntity.GetComponent<StatusComponent>().RemoveBuff(ability);
             }

@@ -39,6 +39,7 @@ namespace EGamePlay
 
         public CombatEntity HeroEntity;
 
+        [SerializeField]
         public CombatEntity BossEntity;
         //public Unit Unit { get; set; }
         //public Unit Monster { get; set; }
@@ -106,7 +107,7 @@ namespace EGamePlay
                 if (SkillTimeImage.fillAmount >= 1)
                 {
                     IsPlaying = false;
-                    PlayButton.GetComponentInChildren<Text>().text = "ֹͣ";
+                    PlayButton.GetComponentInChildren<Text>().text = "停止";
                 }
             }
 

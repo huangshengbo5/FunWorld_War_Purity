@@ -11,11 +11,11 @@ using Entity = EGamePlay.Entity;
 #if UNITY
 public class EGamePlayInit : SerializedMonoBehaviour
 {
-    public static DataTableComponent DataTable;
+    //public static DataTableComponent DataTable;
 
-    private void Awake()
-    {
-        DataTable = UnityGameFramework.Runtime.GameEntry.GetComponent<DataTableComponent>();
-    }
+    // private void Awake()
+    // {
+    //     DataTable = UnityGameFramework.Runtime.GameEntry.GetComponent<DataTableComponent>();
+    // }
 }
 #endif

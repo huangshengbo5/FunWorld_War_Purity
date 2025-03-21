@@ -102,7 +102,7 @@ namespace EGamePlay.Combat
 #else
         public SpellAction SpellWithPoint(Ability spellSkill, Vector3 point)
         {
-            Log.Console($"SpellComponent SpellWithPoint {spellSkill.Config.Id}");
+            Log.Console($"SpellComponent SpellWithPoint {spellSkill.DRConfig.Id}");
             if (CombatEntity.SpellingExecution != null)
                 return null;
 

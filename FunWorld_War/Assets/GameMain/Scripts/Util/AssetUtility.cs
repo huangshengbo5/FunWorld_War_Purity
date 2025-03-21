@@ -72,6 +72,6 @@ public static class AssetUtility
     }
     public static string GetSoliderModelAsset()
     {
-        return GetModelAsset("Solider");
+        return "Assets/GameMain/Res/Prefab/Solider/Solider.prefab";
     }
 }

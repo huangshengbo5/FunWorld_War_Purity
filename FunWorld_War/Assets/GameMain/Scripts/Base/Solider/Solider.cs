@@ -114,7 +114,7 @@ public partial class Solider : BaseObject,IReference
         Init();
     }
 
-    public void Init_Model(int soldierId)
+    public void Init_Model(int soliderId)
     {
         var modelConfig = GameEntry.DataTable.GetDataTable<DRModel>().GetDataRow(soliderId);
         if (modelConfig != null)
@@ -123,14 +123,33 @@ public partial class Solider : BaseObject,IReference
             var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
             {
                 var modelObj = Instantiate((GameObject)asset);
+                var childCount = this.transModel.childCount;
+                if (childCount > 0)
+                {
+                    for (int i = 0; i < childCount; i++)
+                    {
+                        var child = this.transModel.GetChild(i);
+                        child.parent = null;
+                        Destroy(child.gameObject);
+                    }
+                }
                 modelObj.transform.SetParent(this.transModel);
                 modelObj.transform.localPosition = Vector3.zero;
                 modelObj.transform.localScale = Vector3.one;
                 modelObj.transform.localRotation = Quaternion.identity;
                 var modelAni = modelObj.GetComponent<AnimationEvent_Solider>();
-                modelAni.solider = this;
+                if (modelAni)
+                {
+                    modelAni.solider = this;
+                }
                 Animator = modelObj.GetComponent<Animator>();
-                
+
+                var animationCom = modelObj.GetComponent<AnimationComponent>();
+                if (animationCom)
+                {
+                    AnimationComponent = animationCom;
+                }
+
             }, null, null, null);
             GameEntry.Resource.LoadAsset(modelPath, m_LoadAssetCallbacks);
         }
@@ -385,7 +404,11 @@ public partial class Solider : BaseObject,IReference
 
     public BaseObject FindEnemy()
     {
-        return OwnerSoliderCommander.SoliderFindTarget(this);
+        if (OwnerSoliderCommander != null)
+        {
+            return OwnerSoliderCommander.SoliderFindTarget(this);    
+        }
+        return null;
     }
 
     public void Clear()

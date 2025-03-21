@@ -84,7 +84,7 @@ public class ProcedureChangeScene : ProcedureBase
 
         //if (m_BackgroundMusicId > 0) GameEntry.Sound.PlayMusic(m_BackgroundMusicId);
         m_IsChangeSceneComplete = true;
-        GameEntry.UI.OpenUIForm(UIFormId.MenuForm);
+        //GameEntry.UI.OpenUIForm(UIFormId.MenuForm);
     }
 
     private void OnLoadSceneFailure(object sender, GameEventArgs e)

@@ -6,5 +6,9 @@ public enum GameMode : byte
     /// <summary>
     /// 生存模式。
     /// </summary>
-    Survival
+    Survival,
+    /// <summary>
+    /// 技能测试模式
+    /// </summary>
+    AbilityTest,
 }

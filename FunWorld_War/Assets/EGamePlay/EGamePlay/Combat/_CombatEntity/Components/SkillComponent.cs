@@ -16,16 +16,16 @@ namespace EGamePlay.Combat
         {
             var abilityComp = Entity.GetComponent<AbilityComponent>();
             var skill = abilityComp.AttachAbility(configObject);
-            NameSkills.Add(skill.Config.Name, skill);
-            IdSkills.Add(skill.Config.Id, skill);
+            NameSkills.Add(skill.DRConfig.Name, skill);
+            IdSkills.Add(skill.DRConfig.Id, skill);
             return skill;
         }
 
         public void RemoveSkill(Ability skill)
         {
             var abilityComp = Entity.GetComponent<AbilityComponent>();
-            NameSkills.Remove(skill.Config.Name);
-            IdSkills.Remove(skill.Config.Id);
+            NameSkills.Remove(skill.DRConfig.Name);
+            IdSkills.Remove(skill.DRConfig.Id);
             abilityComp.RemoveAbility(skill);
         }
     }

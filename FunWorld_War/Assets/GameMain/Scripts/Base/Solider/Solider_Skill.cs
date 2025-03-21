@@ -5,7 +5,9 @@ using UnityEngine;
 
 public partial class Solider
 {
+    [HideInInspector]
     public CombatEntity CombatEntity;
+    [HideInInspector]
     public AnimationComponent AnimationComponent;
 
     public void Start_Skill()
@@ -33,7 +35,10 @@ public partial class Solider
                 var skillId = abilityItem.Id;
                 var skillConfigObjectPath = $"{AbilityManagerObject.SkillResFolder}/Skill_{skillId}";
                 var configObj = GameUtils.AssetUtils.LoadObject<AbilityConfigObject>(skillConfigObjectPath);
-                var ability = CombatEntity.GetComponent<SkillComponent>().AttachSkill(configObj);
+                if (configObj)
+                {
+                    var ability = CombatEntity.GetComponent<SkillComponent>().AttachSkill(configObj);    
+                }
             }
         }
         

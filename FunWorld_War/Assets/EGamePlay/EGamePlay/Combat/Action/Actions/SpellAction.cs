@@ -98,7 +98,7 @@ namespace EGamePlay.Combat
             {
                 SkillExecution.SkillTargets.AddRange(SkillTargets);
             }
-            if (SkillAbility.Config.Id != 2001)
+            if (SkillAbility.DRConfig.Id != 2001)
             {
                 SkillExecution.ActionOccupy = actionOccupy;
             }
@@ -108,7 +108,7 @@ namespace EGamePlay.Combat
             execution.InputRadian = InputRadian;
             execution.BeginExecute();
             AddComponent<UpdateComponent>();
-            if (SkillAbility.Config.Id == 2001)
+            if (SkillAbility.DRConfig.Id == 2001)
             {
                 execution.GetParent<CombatEntity>().SpellingExecution = null;
             }

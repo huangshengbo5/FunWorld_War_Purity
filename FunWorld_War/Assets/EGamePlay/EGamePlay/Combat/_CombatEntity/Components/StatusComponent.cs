@@ -14,7 +14,7 @@ namespace EGamePlay.Combat
         public Ability AttachStatus(object configObject)
         {
             var statusAbility = Entity.GetComponent<AbilityComponent>().AttachAbility(configObject);
-            var statusConfigID = statusAbility.Config.KeyName;
+            var statusConfigID = statusAbility.DRConfig.KeyName;
             if (!TypeIdStatuses.ContainsKey(statusConfigID))
             {
                 TypeIdStatuses.Add(statusConfigID, new List<Ability>());
@@ -27,7 +27,7 @@ namespace EGamePlay.Combat
         public void RemoveBuff(Ability buff)
         {
             this.Publish(new RemoveStatusEvent() { Entity = this.Entity, Status = buff, StatusId = buff.Id });
-            var keyName = buff.Config.KeyName;
+            var keyName = buff.DRConfig.KeyName;
             TypeIdStatuses[keyName].Remove(buff);
             if (TypeIdStatuses[keyName].Count == 0)
             {

@@ -2,6 +2,9 @@
 using GameUtils;
 using ET;
 using System.Collections.Generic;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
+using UnityEditor;
+using UnityEditor.MPE;
 using UnityEngine;
 #if EGAMEPLAY_ET
 using SkillConfig = cfg.Skill.SkillCfg;
@@ -16,12 +19,13 @@ namespace EGamePlay.Combat
         public CombatEntity OwnerEntity { get { return GetParent<CombatEntity>(); } set { } }
         public Entity ParentEntity { get => Parent; }
         public bool Enable { get; set; }
-        public AbilityConfig Config { get; set; }
+        
+        public DRAbilityConfig DRConfig { get; set; }
         public AbilityConfigObject ConfigObject { get; set; }
         public bool Spelling { get; set; }
         public GameTimer CooldownTimer { get; } = new GameTimer(1f);
         public ExecutionObject ExecutionObject { get; set; }
-        public bool IsBuff => Config.Type == "Buff";
+        public bool IsBuff => DRConfig.Type == (int)SkillType.Buff;
         public bool IsSkill => !IsBuff;
 
 
@@ -29,46 +33,83 @@ namespace EGamePlay.Combat
         {
             base.Awake(initData);
             ConfigObject = initData as AbilityConfigObject;
-            Config = ConfigHelper.Get<AbilityConfig>(ConfigObject.Id);
+            //Config = ConfigHelper.Get<AbilityConfig>(ConfigObject.Id);
 
-            if (Config.TargetGroup == "己方")
+            DRConfig = GameEntry.DataTable.GetDataTable<DRAbilityConfig>().GetDataRow(ConfigObject.Id);
+
+            
+            if (DRConfig.TargetGroup == (int)SkillAffectTargetType.SelfTeam)
             {
                 ConfigObject.AffectTargetType = SkillAffectTargetType.SelfTeam;
             }
-            else if (Config.TargetGroup == "敌方")
+            else if (DRConfig.TargetGroup == (int)SkillAffectTargetType.EnemyTeam)
             {
                 ConfigObject.AffectTargetType = SkillAffectTargetType.EnemyTeam;
             }
-            else if (Config.TargetGroup == "自身")
+            else if (DRConfig.TargetGroup == (int)SkillAffectTargetType.Self)
             {
                 ConfigObject.AffectTargetType = SkillAffectTargetType.Self;
             }
             else
             {
-                Log.Error($"技能目标阵营错误 {Config.TargetGroup}");
+                Log.Error($"技能目标阵营错误 {DRConfig.TargetGroup}");
             }
+            
+            // if (Config.TargetGroup == "己方")
+            // {
+            //     
+            // }
+            // else if (Config.TargetGroup == "敌方")
+            // {
+            //     ConfigObject.AffectTargetType = SkillAffectTargetType.EnemyTeam;
+            // }
+            // else if (Config.TargetGroup == "自身")
+            // {
+            //     ConfigObject.AffectTargetType = SkillAffectTargetType.Self;
+            // }
+            // else
+            // {
+            //     Log.Error($"技能目标阵营错误 {Config.TargetGroup}");
+            // }
 
             if (IsSkill)
             {
-                if (Config.TargetSelect == "碰撞检测")
+                if (DRConfig.TargetSelect == (int)SkillTargetSelectType.ConditionSelect)
                 {
                     ConfigObject.TargetSelectType = SkillTargetSelectType.CollisionSelect;
                 }
-                else if (Config.TargetSelect == "条件指定")
+                else if (DRConfig.TargetSelect == (int)SkillTargetSelectType.ConditionSelect)
                 {
                     ConfigObject.TargetSelectType = SkillTargetSelectType.ConditionSelect;
                 }
-                else if (Config.TargetSelect == "手动指定")
+                else if (DRConfig.TargetSelect == (int)SkillTargetSelectType.PlayerSelect)
                 {
                     ConfigObject.TargetSelectType = SkillTargetSelectType.PlayerSelect;
                 }
                 else
                 {
-                    Log.Error($"目标选取类型错误 {Config.TargetSelect}");
+                    Log.Error($"目标选取类型错误 {DRConfig.TargetSelect}");
                 }
+                // if (Config.TargetSelect == "碰撞检测")
+                // {
+                //     ConfigObject.TargetSelectType = SkillTargetSelectType.CollisionSelect;
+                // }
+                // else if (Config.TargetSelect == "条件指定")
+                // {
+                //     ConfigObject.TargetSelectType = SkillTargetSelectType.ConditionSelect;
+                // }
+                // else if (Config.TargetSelect == "手动指定")
+                // {
+                //     ConfigObject.TargetSelectType = SkillTargetSelectType.PlayerSelect;
+                // }
+                // else
+                // {
+                //     Log.Error($"目标选取类型错误 {Config.TargetSelect}");
+                // }
             }
 
-            Name = this.Config.Name;
+            //Name = this.Config.Name;
+            Name = this.DRConfig.Name;
             AddComponent<AbilityEffectComponent>(ConfigObject.Effects);
             AddComponent<AbilityTriggerComponent>(ConfigObject.TriggerActions);
             LoadExecution();

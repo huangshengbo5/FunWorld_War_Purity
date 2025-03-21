@@ -94,6 +94,16 @@ public static class UIExtension
         return uiComponent.OpenUIForm((int)uiFormId, userData);
     }
 
+    public static void CloseUIForm(this UIComponent uiComponent, UIFormId uiFormId)
+    {
+        var uiForm = uiComponent.GetUIForm((int)uiFormId);
+        if (uiForm)
+        {
+            uiComponent.CloseUIForm(uiForm);    
+        }
+    }
+    
+
     public static int? OpenUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
     {
         IDataTable<DRUIForm> dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForm>();
