@@ -59,6 +59,9 @@ public class ProcedureMain : ProcedureBase
     {
         base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
+        GameMode gameMode = (GameMode)procedureOwner.GetData<VarByte>("GameMode").Value;
+        m_CurrentGame = m_Games[gameMode];
+        m_CurrentGame.Update(elapseSeconds,realElapseSeconds);
         if (m_CurrentGame != null && !m_CurrentGame.GameOver)
         {
             m_CurrentGame.Update(elapseSeconds, realElapseSeconds);

@@ -48,8 +48,8 @@ namespace EGamePlay.Combat
         //public string SkillExecutionAssetFolder = "Assets/Resources/ExecutionObjects";
         //public string StatusExecutionAssetFolder = "Assets/Resources/ExecutionObjects";
 
-        public const string SkillResFolder = "AbilityObjects/Skill";
-        public const string BuffResFolder = "AbilityObjects/Buff";
+        public const string SkillResFolder = "AbilityObjects";
+        public const string BuffResFolder = "AbilityObjects";
         public const string ExecutionResFolder = "ExecutionObjects";
 
         [Space(10)]

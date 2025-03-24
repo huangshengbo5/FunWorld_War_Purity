@@ -13,10 +13,17 @@ namespace EGamePlay.Combat
         public Action<Collider> OnTriggerEnterCallbackAction;
 
 
-        private void OnTriggerEnter(Collider other)
+        private void Start()
+        { 
+            Log.Error("OnTriggerEnterCallBack.Start!!!");
+        }
+
+        void OnTriggerEnter(Collider other) 
         {
+            Log.Error("OnTriggerEnterCallBack.OnTriggerEnter!!!");
             //Debug.Log($"OnTriggerEnterCallback OnTriggerEnter {other.name}");
             OnTriggerEnterCallbackAction?.Invoke(other);
         }
+        
     }
 }

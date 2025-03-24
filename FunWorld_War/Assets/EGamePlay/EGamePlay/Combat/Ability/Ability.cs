@@ -3,6 +3,7 @@ using GameUtils;
 using ET;
 using System.Collections.Generic;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
+using GameFramework.Resource;
 using UnityEditor;
 using UnityEditor.MPE;
 using UnityEngine;
@@ -118,11 +119,12 @@ namespace EGamePlay.Combat
 
         public void LoadExecution()
         {
-            ExecutionObject = AssetUtils.LoadObject<ExecutionObject>($"{AbilityManagerObject.ExecutionResFolder}/Execution_{ConfigObject.Id}");
-            if (ExecutionObject == null)
+            var executionObjectPath = $"Assets/GameMain/Ability/{AbilityManagerObject.ExecutionResFolder}/Execution_{ConfigObject.Id}.asset";
+            var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
             {
-                return;
-            }
+                ExecutionObject = (ExecutionObject)asset;
+            },null,null, null);
+            GameEntry.Resource.LoadAsset(executionObjectPath, m_LoadAssetCallbacks);
         }
 
         public void TryActivateAbility()

@@ -410,7 +410,7 @@ namespace EGamePlay.Combat
                     }
                     if (collisionData.ExecuteTargetType == CollisionExecuteTargetType.EnemyGroup)
                     {
-                        if (otherEntity.IsHero == owner.IsHero)
+                        if (otherEntity != null && otherEntity.IsHero == owner.IsHero)
                         {
                             return;
                         }

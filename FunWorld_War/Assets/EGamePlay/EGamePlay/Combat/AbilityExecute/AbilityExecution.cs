@@ -73,6 +73,7 @@ namespace EGamePlay.Combat
             {
                 var nowTicks = TimeHelper.ClientNow() - OriginTime;
                 var nowSeconds = nowTicks / 1000f;
+                //Log.Error($"nowSeconds:{nowSeconds} | TotalTime:{ExecutionObject.TotalTime}");
                 if (nowSeconds >= ExecutionObject.TotalTime)
                 {
                     EndExecute();

@@ -1,7 +1,9 @@
 using EGamePlay;
 using EGamePlay.Combat;
 using ET;
+using GameFramework.Resource;
 using UnityEngine;
+using Log = EGamePlay.Log;
 
 public partial class Solider
 {
@@ -13,6 +15,8 @@ public partial class Solider
     public void Start_Skill()
     {
         CombatEntity = CombatContext.Instance.AddChild<CombatEntity>();
+        CombatContext.Instance.Object2Entities.Add(gameObject, CombatEntity);
+        CombatEntity.IsHero = true;
         CombatEntity.HeroObject = gameObject;
         CombatEntity.ModelTrans = gameObject.transform.GetChild(0);
         CombatEntity.ListenActionPoint(ActionPointType.PreSpell, OnPreSpell);
@@ -24,23 +28,39 @@ public partial class Solider
         CombatEntity.Subscribe<AnimationClip>(OnPlayAnimation);
         CombatEntity.CurrentHealth.Minus(30000);
         
-        CombatEntity.GetComponent<SpellComponent>().LoadExecutionObjects();
 
         //todo  加载技能配置
         var abilityConfig = GameEntry.DataTable.GetDataTable<DRAbilityConfig>();
-        foreach (var abilityItem in abilityConfig)
+        var enumerator = abilityConfig.GetEnumerator();
+        while (enumerator.MoveNext())
         {
-            if (abilityItem.Type == (int)SkillType.Skill)
+            var abilityItem = enumerator.Current;
+            var skillId = abilityItem.Id;
+            var skillConfigObjectPath = $"Assets/GameMain/Ability/{AbilityManagerObject.SkillResFolder}/Skill_{skillId}.asset";
+            var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
             {
-                var skillId = abilityItem.Id;
-                var skillConfigObjectPath = $"{AbilityManagerObject.SkillResFolder}/Skill_{skillId}";
-                var configObj = GameUtils.AssetUtils.LoadObject<AbilityConfigObject>(skillConfigObjectPath);
-                if (configObj)
+                var ability = CombatEntity.GetComponent<SkillComponent>().AttachSkill(asset);
+                if (!enumerator.MoveNext())
                 {
-                    var ability = CombatEntity.GetComponent<SkillComponent>().AttachSkill(configObj);    
+                    CombatEntity.GetComponent<SpellComponent>().LoadExecutionObjects();
                 }
-            }
+            }, null, null, null);
+            GameEntry.Resource.LoadAsset(skillConfigObjectPath, m_LoadAssetCallbacks);
         }
+        // foreach (var abilityItem in abilityConfig)
+        // {
+        //     if (abilityItem.Type == (int)SkillType.Skill)
+        //     {
+        //         var skillId = abilityItem.Id;
+        //         var skillConfigObjectPath = $"Assets/GameMain/Ability/{AbilityManagerObject.SkillResFolder}/Skill_{skillId}.asset";
+        //         var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
+        //         {
+        //             var ability = CombatEntity.GetComponent<SkillComponent>().AttachSkill(asset);
+        //         }, null, null, null);
+        //         GameEntry.Resource.LoadAsset(skillConfigObjectPath, m_LoadAssetCallbacks);
+        //     }
+        // }
+        
         
         var ExecutionLinkPanelObj = GameObject.Find("ExecutionLinkPanel");
         if (ExecutionLinkPanelObj != null)

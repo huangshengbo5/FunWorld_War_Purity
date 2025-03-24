@@ -6,6 +6,7 @@ using EGamePlay;
 using EGamePlay.Combat;
 using GameUtils;
 using System;
+using GameFramework.Resource;
 
 #if EGAMEPLAY_ET
 using Unity.Mathematics;
@@ -35,11 +36,13 @@ namespace EGamePlay.Combat
         {
             foreach (var item in CombatEntity.GetComponent<SkillComponent>().IdSkills)
             {
-                var executionObj = AssetUtils.LoadObject<ExecutionObject>($"{AbilityManagerObject.ExecutionResFolder}/Execution_{item.Key}");
-                if (executionObj != null)
+                //var executionObj = AssetUtils.LoadObject<ExecutionObject>($"{AbilityManagerObject.ExecutionResFolder}/Execution_{item.Key}");
+                var executionObjectPath = $"Assets/GameMain/Ability/{AbilityManagerObject.ExecutionResFolder}/Execution_{item.Key}.asset";
+                var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
                 {
-                    ExecutionObjects.Add(item.Key, executionObj);
-                }
+                    ExecutionObjects.Add(item.Key, (ExecutionObject)asset);
+                }, null, null, null);
+                GameEntry.Resource.LoadAsset(executionObjectPath, m_LoadAssetCallbacks);
             }
         }
 
