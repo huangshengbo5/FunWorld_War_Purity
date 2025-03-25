@@ -119,7 +119,7 @@ public partial class Solider : BaseObject,IReference
         var modelConfig = GameEntry.DataTable.GetDataTable<DRModel>().GetDataRow(soliderId);
         if (modelConfig != null)
         {
-            var modelPath = AssetUtility.GetModelAsset(modelConfig.model);
+            var modelPath = AssetUtility.GetModelAssetPath(modelConfig.model);
             var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
             {
                 var modelObj = Instantiate((GameObject)asset);
@@ -204,7 +204,7 @@ public partial class Solider : BaseObject,IReference
                 behaviorTreeEnum = BehaviorTreeEnum.Neutral;
                 break;
         }
-        var behaviorPath = AssetUtility.GetBehaviorAsset(Common.GetBehaviorTreePath(behaviorTreeEnum));
+        var behaviorPath = AssetUtility.GetBehaviorAssetPath(Common.GetBehaviorTreePath(behaviorTreeEnum));
         var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
         {
             externalBehavior = asset as ExternalBehavior;

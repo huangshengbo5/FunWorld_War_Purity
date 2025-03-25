@@ -28,7 +28,7 @@ public class TownHUD : MonoBehaviour
     public void OnTownCampChange(CampType campType)
     {
         var assetName = Common.GetCampImagePath(campType);
-        var fullPath = AssetUtility.GetTextureAsset(assetName);
+        var fullPath = AssetUtility.GetTextureAssetPath(assetName);
         LoadAssetCallbacks callBack = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData) =>
         {
             if (asset != null)

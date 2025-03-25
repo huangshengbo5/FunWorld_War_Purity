@@ -45,7 +45,7 @@ public static class UIExtension
         DRUIForm drUIForm = dtUIForm.GetDataRow(uiFormId);
         if (drUIForm == null) return false;
         
-        var assetName = AssetUtility.GetUIFormAsset(drUIForm.AssetName);
+        var assetName = AssetUtility.GetUIFormAssetPath(drUIForm.AssetName);
         if (string.IsNullOrEmpty(uiGroupName)) return uiComponent.HasUIForm(assetName);
         
         var uiGroup = uiComponent.GetUIGroup(uiGroupName);
@@ -65,7 +65,7 @@ public static class UIExtension
         DRUIForm drUIForm = dtUIForm.GetDataRow(uiFormId);
         if (drUIForm == null) return null;
         
-        var assetName = AssetUtility.GetUIFormAsset(drUIForm.AssetName);
+        var assetName = AssetUtility.GetUIFormAssetPath(drUIForm.AssetName);
         UIForm uiForm = null;
         if (string.IsNullOrEmpty(uiGroupName))
         {
@@ -114,7 +114,7 @@ public static class UIExtension
             return null;
         }
         
-        var assetName = AssetUtility.GetUIFormAsset(drUIForm.AssetName);
+        var assetName = AssetUtility.GetUIFormAssetPath(drUIForm.AssetName);
         if (!drUIForm.AllowMultiInstance)
         {
             if (uiComponent.IsLoadingUIForm(assetName)) return null;

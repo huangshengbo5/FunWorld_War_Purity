@@ -119,7 +119,7 @@ namespace EGamePlay.Combat
 
         public void LoadExecution()
         {
-            var executionObjectPath = $"Assets/GameMain/Ability/{AbilityManagerObject.ExecutionResFolder}/Execution_{ConfigObject.Id}.asset";
+            var executionObjectPath = AssetUtility.GetExecutionObjectPath(ConfigObject.Id);
             var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
             {
                 ExecutionObject = (ExecutionObject)asset;

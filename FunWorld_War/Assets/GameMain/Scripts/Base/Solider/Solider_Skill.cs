@@ -36,7 +36,16 @@ public partial class Solider
         {
             var abilityItem = enumerator.Current;
             var skillId = abilityItem.Id;
-            var skillConfigObjectPath = $"Assets/GameMain/Ability/{AbilityManagerObject.SkillResFolder}/Skill_{skillId}.asset";
+            var objectPath = "";
+            if (abilityItem.Type == (int)SkillType.Skill)
+            {
+                objectPath = AssetUtility.GetAbilityObjectSkillPath(skillId);
+            }
+            else if (abilityItem.Type == (int)SkillType.Buff)
+            {
+                objectPath = AssetUtility.GetAbilityObjectBuffPath(skillId);
+            }
+            
             var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
             {
                 var ability = CombatEntity.GetComponent<SkillComponent>().AttachSkill(asset);
@@ -45,22 +54,8 @@ public partial class Solider
                     CombatEntity.GetComponent<SpellComponent>().LoadExecutionObjects();
                 }
             }, null, null, null);
-            GameEntry.Resource.LoadAsset(skillConfigObjectPath, m_LoadAssetCallbacks);
+            GameEntry.Resource.LoadAsset(objectPath, m_LoadAssetCallbacks);
         }
-        // foreach (var abilityItem in abilityConfig)
-        // {
-        //     if (abilityItem.Type == (int)SkillType.Skill)
-        //     {
-        //         var skillId = abilityItem.Id;
-        //         var skillConfigObjectPath = $"Assets/GameMain/Ability/{AbilityManagerObject.SkillResFolder}/Skill_{skillId}.asset";
-        //         var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
-        //         {
-        //             var ability = CombatEntity.GetComponent<SkillComponent>().AttachSkill(asset);
-        //         }, null, null, null);
-        //         GameEntry.Resource.LoadAsset(skillConfigObjectPath, m_LoadAssetCallbacks);
-        //     }
-        // }
-        
         
         var ExecutionLinkPanelObj = GameObject.Find("ExecutionLinkPanel");
         if (ExecutionLinkPanelObj != null)

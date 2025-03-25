@@ -18,7 +18,7 @@ public class Spawner_Solider : MonoBehaviour
         var NpcConfigs = GameEntry.DataTable.GetDataTable<DRNPC>();
         NpcConfig = NpcConfigs.GetDataRow(Soldier_Id);
         var ModelConfigs = GameEntry.DataTable.GetDataTable<DRModel>();
-        var SoliderPath = AssetUtility.GetModelAsset(ModelConfigs.GetDataRow(NpcConfig.model).model);
+        var SoliderPath = AssetUtility.GetModelAssetPath(ModelConfigs.GetDataRow(NpcConfig.model).model);
         var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
         {
             CreateSolider((GameObject)asset);

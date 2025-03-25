@@ -72,21 +72,21 @@ public class ProcedurePreload : ProcedureBase
 
     private void LoadConfig(string configName)
     {
-        var configAssetName = AssetUtility.GetConfigAsset(configName, false);
+        var configAssetName = AssetUtility.GetConfigAssetPath(configName, false);
         m_LoadedFlag.Add(configAssetName, false);
         GameEntry.Config.ReadData(configAssetName, this);
     }
 
     private void LoadDataTable(string dataTableName)
     {
-        var dataTableAssetName = AssetUtility.GetDataTableAsset(dataTableName, true);
+        var dataTableAssetName = AssetUtility.GetDataTableAssetPath(dataTableName, true);
         m_LoadedFlag.Add(dataTableAssetName, false);
         GameEntry.DataTable.LoadDataTable(dataTableName, dataTableAssetName, this);
     }
 
     private void LoadDictionary(string dictionaryName)
     {
-        var dictionaryAssetName = AssetUtility.GetDictionaryAsset(dictionaryName, false);
+        var dictionaryAssetName = AssetUtility.GetDictionaryAssetPath(dictionaryName, false);
         m_LoadedFlag.Add(dictionaryAssetName, false);
         GameEntry.Localization.ReadData(dictionaryAssetName, this);
     }
@@ -94,7 +94,7 @@ public class ProcedurePreload : ProcedureBase
     private void LoadFont(string fontName)
     {
         m_LoadedFlag.Add(Utility.Text.Format("Font.{0}", fontName), false);
-        GameEntry.Resource.LoadAsset(AssetUtility.GetFontAsset(fontName), Constant.AssetPriority.FontAsset,
+        GameEntry.Resource.LoadAsset(AssetUtility.GetFontAssetPath(fontName), Constant.AssetPriority.FontAsset,
             new LoadAssetCallbacks(
                 (assetName, asset, duration, userData) =>
                 {

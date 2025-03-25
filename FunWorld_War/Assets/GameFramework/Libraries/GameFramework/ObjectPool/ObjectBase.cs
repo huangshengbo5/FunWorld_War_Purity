@@ -20,7 +20,7 @@ namespace GameFramework.ObjectPool
         private int m_Priority;
         private DateTime m_LastUseTime;
 
-        /// <summary>
+        /// <summary>sss
         /// 初始化对象基类的新实例。
         /// </summary>
         public ObjectBase()

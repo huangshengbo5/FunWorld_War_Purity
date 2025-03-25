@@ -36,8 +36,7 @@ namespace EGamePlay.Combat
         {
             foreach (var item in CombatEntity.GetComponent<SkillComponent>().IdSkills)
             {
-                //var executionObj = AssetUtils.LoadObject<ExecutionObject>($"{AbilityManagerObject.ExecutionResFolder}/Execution_{item.Key}");
-                var executionObjectPath = $"Assets/GameMain/Ability/{AbilityManagerObject.ExecutionResFolder}/Execution_{item.Key}.asset";
+                var executionObjectPath = AssetUtility.GetExecutionObjectPath(item.Key);
                 var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
                 {
                     ExecutionObjects.Add(item.Key, (ExecutionObject)asset);

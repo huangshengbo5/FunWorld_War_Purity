@@ -24,7 +24,7 @@ public class SoliderFactory
     private IObjectPool<SoliderPoolItem> m_SoliderObjectPool = null;
     public  void Initialization()
     {
-        var SoliderPath = AssetUtility.GetSoliderModelAsset();
+        var SoliderPath = AssetUtility.GetSoliderModelAssetPath();
         
         var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
         {
@@ -32,6 +32,12 @@ public class SoliderFactory
         }, null, null, null);
         GameEntry.Resource.LoadAsset(SoliderPath, m_LoadAssetCallbacks);
         m_SoliderObjectPool = GameEntry.ObjectPool.CreateSingleSpawnObjectPool<SoliderPoolItem>();
+    }
+
+    public void Remove(Solider solider)
+    {
+        //回收对象
+        m_SoliderObjectPool.Unspawn(solider);
     }
     
     public Solider Create(SoliderConfig soliderConfig)
