@@ -75,7 +75,9 @@ namespace EGamePlay.Combat
                     if (Target.GetComponent<AbilityItemShieldComponent>() != null)
                     {
 #if !EGAMEPLAY_ET
-                        if (CauseItem.OwnerEntity.IsHero != abilityItem.OwnerEntity.IsHero)
+                        //CauseItem.OwnerEntity.IsHero != abilityItem.OwnerEntity.IsHero)
+                        //敌人
+                        if (abilityItem.OwnerEntity.IsHostile(CauseItem.OwnerEntity.CampType))
 #endif
                         {
                             CauseItem.OnTriggerEvent(Target);

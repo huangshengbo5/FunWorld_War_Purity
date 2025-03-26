@@ -39,6 +39,8 @@ public partial class Solider : BaseObject,IReference
     private Animator Animator;
     
     protected BaseObject targetObject;
+
+    protected CombatEntity targetComBatEntity;
     
     //士兵归属的城镇
     protected Town ownerTown;
@@ -224,6 +226,8 @@ public partial class Solider : BaseObject,IReference
     public void ChangeTargetObject(BaseObject targetTown)
     {
         targetObject = targetTown;
+        //todo 获取目标的战斗实体
+        targetComBatEntity = CombatContext.Instance.Object2Entities[targetObject.gameObject];
         behaviorTree.SetVariableValue("TargetTrans",targetObject ? targetObject.transform : null);
     }
     
@@ -243,10 +247,10 @@ public partial class Solider : BaseObject,IReference
         soliderHUD.UpdatgeHP(CurHp,MaxHp);
     }
     
-    public void DoAttack()
-    {
-        ChangeAnimatorState(State.Attack_Enemy);
-    }
+    // public void DoAttack()
+    // {
+    //     ChangeAnimatorState(State.Attack_Enemy);
+    // }
 
     public void ChangeState(State state)
     {
@@ -353,6 +357,10 @@ public partial class Solider : BaseObject,IReference
     //改变装填
     public bool ChangeAnimatorState(State state)
     {
+        if (Animator == null)
+        {
+            return true;
+        }
         if (curState == state)
         {
             return false;
@@ -379,9 +387,12 @@ public partial class Solider : BaseObject,IReference
 
     protected void ResetAniState()
     {
-        Animator.SetBool("Move",false);
-        Animator.SetBool("Idle",false);
-        Animator.SetBool("Attack",false);
+        if (Animator)
+        {
+            Animator.SetBool("Move",false);
+            Animator.SetBool("Idle",false);
+            Animator.SetBool("Attack",false);
+        }
     }
     
     public void MoveToTarget(Vector3 targetPoint)

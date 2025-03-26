@@ -16,7 +16,7 @@ namespace EGamePlay.Combat
     /// <summary>
     /// 战斗实体
     /// </summary>
-    public sealed class CombatEntity : Entity, IPosition
+    public sealed partial class CombatEntity : Entity, IPosition
     {
         public GameObject HeroObject { get; set; }
         public Transform ModelTrans { get; set; }
@@ -158,31 +158,49 @@ namespace EGamePlay.Combat
         public int SeatNumber { get; set; }
         public int JumpToTime { get; set; }
         public bool IsHero { get; set; }
+
+        //阵营类型
+        public CampType CampType;
         public bool IsMonster => IsHero == false;
 
-        public CombatEntity GetEnemy(int seat)
+        public RelationType GetRelationType(CampType type)
         {
-            if (IsHero)
-            {
-                return GetParent<CombatContext>().GetMonster(seat);
-            }
-            else
-            {
-                return GetParent<CombatContext>().GetHero(seat);
-            }
+            return Common.GetRelation(this.CampType,type);
         }
 
-        public CombatEntity GetTeammate(int seat)
+        public bool IsHostile(CampType type)
         {
-            if (IsHero)
-            {
-                return GetParent<CombatContext>().GetHero(seat);
-            }
-            else
-            {
-                return GetParent<CombatContext>().GetMonster(seat);
-            }
+            return GetRelationType(type) == RelationType.Hostile;
         }
+
+        public bool IsFriend(CampType type)
+        {
+            return GetRelationType(type) == RelationType.Friend;
+        }
+        
+        // public CombatEntity GetEnemy(int seat)
+        // {
+        //     if (IsHero)
+        //     {
+        //         return GetParent<CombatContext>().GetMonster(seat);
+        //     }
+        //     else
+        //     {
+        //         return GetParent<CombatContext>().GetHero(seat);
+        //     }
+        // }
+
+        // public CombatEntity GetTeammate(int seat)
+        // {
+        //     if (IsHero)
+        //     {
+        //         return GetParent<CombatContext>().GetHero(seat);
+        //     }
+        //     else
+        //     {
+        //         return GetParent<CombatContext>().GetMonster(seat);
+        //     }
+        // }
         #endregion
     }
 

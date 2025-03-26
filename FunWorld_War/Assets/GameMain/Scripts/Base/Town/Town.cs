@@ -25,6 +25,7 @@ public partial class Town : BaseObject
     private void Start()
     {
         RegisterEvent();
+        StartCoroutine(DelayStart_Skill());
         curSoliderNum = DefaultMaxSoliderNum;
     }
 
@@ -98,13 +99,14 @@ public partial class Town : BaseObject
         List<Solider> Soliders = new List<Solider>();
         for (int i = 0; i < curSoliderNum; i++)
         {
-            var createSolider = CreateSolider(i); 
-            Soliders.Add(createSolider);
-            createSolider.CampType = this.Camp();
-            createSolider.Init();
+            //var createSolider = CreateSolider(i); 
+            //createSolider.Init();
+            var solider = BattleManager.Instance().Factory.Solider.Create(new SoliderFactory.SoliderConfig(1001001,GetSoliderPosition(),Vector3.one));
+            Soliders.Add(solider);
+            solider.CampType = this.Camp();
             if (TargetTown)
             {
-                createSolider.ChangeTargetObject(TargetTown);    
+                solider.ChangeTargetObject(TargetTown);
             }
         }
 
@@ -116,27 +118,27 @@ public partial class Town : BaseObject
     }
     
     //创建士兵
-    protected Solider CreateSolider(int index)
-    {
-        var solider = (GameObject)Instantiate(ObjSolider);
-        solider.name = string.Format("Solider_{0}_{1}",ownerCamp.ToString(),index) ;
-        var soliderTans = solider.GetComponent<Transform>();
-        soliderTans.position = GetSoliderPosition();
-        soliderTans.localScale = Vector3.one;
-        soliderTans.rotation = Quaternion.identity;
-        var soliderCom = solider.GetComponent<Solider>();
-        soliderCom.OwnerTown = this;
-        return soliderCom;
-    }
+    // protected Solider CreateSolider(int index)
+    // {
+    //     var solider = (GameObject)Instantiate(ObjSolider);
+    //     solider.name = string.Format("Solider_{0}_{1}",ownerCamp.ToString(),index) ;
+    //     var soliderTans = solider.GetComponent<Transform>();
+    //     soliderTans.position = GetSoliderPosition();
+    //     soliderTans.localScale = Vector3.one;
+    //     soliderTans.rotation = Quaternion.identity;
+    //     var soliderCom = solider.GetComponent<Solider>();
+    //     soliderCom.OwnerTown = this;
+    //     return soliderCom;
+    // }
 
     //获取士兵位置
     Vector3 GetSoliderPosition()
     {
         var selfPosition = this.gameObject.transform.position;
         var random = new Random();
-        var posx = random.Next((int)selfPosition.x+3,(int)selfPosition.x+5);
+        var posx = random.Next((int)selfPosition.x + 3,(int)selfPosition.x + 5);
         //var posy = random.Next((int)selfPosition.y,(int)selfPosition.y+10);
-        var posz = random.Next((int)selfPosition.z+3,(int)selfPosition.z+5);
+        var posz = random.Next((int)selfPosition.z + 3,(int)selfPosition.z + 5);
         return new Vector3(posx,0,posz);
     }
 

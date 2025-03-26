@@ -403,14 +403,15 @@ namespace EGamePlay.Combat
 
                     if (collisionData.ExecuteTargetType == CollisionExecuteTargetType.SelfGroup)
                     {
-                        if (otherEntity.IsHero != owner.IsHero)
+                        //if (otherEntity.IsHero != owner.IsHero)
+                        if (owner.IsHostile(otherEntity.CampType))
                         {
                             return;
                         }
                     }
                     if (collisionData.ExecuteTargetType == CollisionExecuteTargetType.EnemyGroup)
                     {
-                        if (otherEntity != null && otherEntity.IsHero == owner.IsHero)
+                        if (otherEntity != null && owner.IsFriend(otherEntity.CampType))
                         {
                             return;
                         }

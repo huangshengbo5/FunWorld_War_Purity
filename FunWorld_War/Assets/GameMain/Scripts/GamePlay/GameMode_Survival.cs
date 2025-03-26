@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Mail;
+using EGamePlay;
+using EGamePlay.Combat;
+using ET;
 using Script.Game.Base;
 using UnityEngine;
 
@@ -12,7 +15,7 @@ public class GameMode_Survival : GameBase
     ///
     [HideInInspector]
     private List<Town> allBattleTowns;
-
+    public bool EntityLog;
     public List<Town> AllBattleTowns
     {
         get { return allBattleTowns; }
@@ -32,6 +35,10 @@ public class GameMode_Survival : GameBase
         GameEntry.Event.Subscribe(BattleClickPlayerTownEventArgs.EventId,HandlerBattleClickPlayerTown);
         GameEntry.Event.Subscribe(BattleSingleTownResultEventArgs.EventId,HandlerOnSingleTownResult); 
         GameEntry.Event.Fire(this,GameStartEventArgs.Create());
+        Entity.EnableLog = EntityLog;
+        var EcsNode = ECSNode.Create();
+        EcsNode.AddChild<CombatContext>();
+        EcsNode.AddChild<TimerManager>();
         BattleManager.Instance().Initialize();
     }
 
@@ -74,7 +81,9 @@ public class GameMode_Survival : GameBase
     public override void Update(float elapseSeconds, float realElapseSeconds)
     {
         base.Update(elapseSeconds, realElapseSeconds);
-
+        ECSNode.Instance.Update();
+        TimerManager.Instance.Update();
+        
         m_ElapseSeconds += elapseSeconds;
         if (m_ElapseSeconds >= 1f) m_ElapseSeconds = 0f;
     }

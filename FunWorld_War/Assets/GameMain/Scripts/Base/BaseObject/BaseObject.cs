@@ -26,4 +26,9 @@ public class BaseObject :  MonoBehaviour
     {
         return global::ObjectType.None;
     }
+
+    public virtual Vector3 GetInteractPoint()
+    {
+        return transform.position;
+    }
 }

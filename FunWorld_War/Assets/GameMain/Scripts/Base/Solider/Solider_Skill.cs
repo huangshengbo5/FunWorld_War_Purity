@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using EGamePlay;
 using EGamePlay.Combat;
 using ET;
 using GameFramework.Resource;
+using Unity.Android.Types;
 using UnityEngine;
 using Log = EGamePlay.Log;
 
@@ -12,6 +14,8 @@ public partial class Solider
     [HideInInspector]
     public AnimationComponent AnimationComponent;
 
+    private List<Ability> AllSkills;
+    private List<Ability> AllBuffs;
     public void Start_Skill()
     {
         CombatEntity = CombatContext.Instance.AddChild<CombatEntity>();
@@ -27,14 +31,18 @@ public partial class Solider
         CombatEntity.Subscribe<RemoveStatusEvent>(OnRemoveStatus);
         CombatEntity.Subscribe<AnimationClip>(OnPlayAnimation);
         CombatEntity.CurrentHealth.Minus(30000);
-        
 
+        AllSkills = new List<Ability>();
+        AllBuffs = new List<Ability>();
         //todo  加载技能配置
         var abilityConfig = GameEntry.DataTable.GetDataTable<DRAbilityConfig>();
+        var abilityLen = abilityConfig.Count;
         var enumerator = abilityConfig.GetEnumerator();
+        var index = 0;
         while (enumerator.MoveNext())
         {
             var abilityItem = enumerator.Current;
+            index++;
             var skillId = abilityItem.Id;
             var objectPath = "";
             if (abilityItem.Type == (int)SkillType.Skill)
@@ -49,7 +57,16 @@ public partial class Solider
             var  m_LoadAssetCallbacks = new LoadAssetCallbacks((string assetName,object asset,float duration,object userData)=>
             {
                 var ability = CombatEntity.GetComponent<SkillComponent>().AttachSkill(asset);
-                if (!enumerator.MoveNext())
+                if (assetName.Contains("Skill_"))
+                {
+                    AllSkills.Add(ability);
+                }
+                else if (assetName.Contains("Buff_"))
+                {
+                    AllBuffs.Add(ability);
+                }
+                //技能表读完，开始加载技能执行体
+                if (index == abilityLen)
                 {
                     CombatEntity.GetComponent<SpellComponent>().LoadExecutionObjects();
                 }
@@ -203,4 +220,15 @@ public partial class Solider
     {
         AnimationComponent.PlayFade(animationClip);
     }
+    
+    //释放技能
+    public void DoAttack()
+    {
+        ChangeAnimatorState(State.Attack_Enemy);
+        //CombatEntity.GetComponent<SkillComponent>()
+        var randomIndex = Random.Range(0, AllSkills.Count);
+        var skill = AllSkills[randomIndex];
+        CombatEntity.GetComponent<SpellComponent>().SpellWithTarget(skill,targetComBatEntity);
+    }
+    
 }

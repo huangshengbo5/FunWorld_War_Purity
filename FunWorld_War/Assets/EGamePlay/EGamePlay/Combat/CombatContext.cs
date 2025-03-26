@@ -29,126 +29,126 @@ namespace EGamePlay.Combat
             Subscribe<EntityDeadEvent>(OnEntityDead);
         }
 
-        #region 回合制战斗
-        //public GameTimer TurnRoundTimer { get; set; } = new GameTimer(2f);
-        public Dictionary<int, CombatEntity> HeroEntities { get; set; } = new Dictionary<int, CombatEntity>();
-        public Dictionary<int, CombatEntity> EnemyEntities { get; set; } = new Dictionary<int, CombatEntity>();
-        public List<RoundAction> RoundActions { get; set; } = new List<RoundAction>();
-
-
-        public override void Update()
-        {
-
-        }
-
-        public CombatEntity AddHeroEntity(int seat)
-        {
-            var entity = AddChild<CombatEntity>();
-            entity.IsHero = true;
-            HeroEntities.Add(seat, entity);
-            entity.SeatNumber = seat;
-            return entity;
-        }
-
-        public CombatEntity AddMonsterEntity(int seat)
-        {
-            var entity = AddChild<CombatEntity>();
-            entity.IsHero = false;
-            EnemyEntities.Add(seat, entity);
-            entity.SeatNumber = seat;
-            return entity;
-        }
-
-        public CombatEntity GetHero(int seat)
-        {
-            return HeroEntities[seat];
-        }
-
-        public CombatEntity GetMonster(int seat)
-        {
-            return EnemyEntities[seat];
-        }
-
+        // #region 回合制战斗
+        // //public GameTimer TurnRoundTimer { get; set; } = new GameTimer(2f);
+        // public Dictionary<int, CombatEntity> HeroEntities { get; set; } = new Dictionary<int, CombatEntity>();
+        // public Dictionary<int, CombatEntity> EnemyEntities { get; set; } = new Dictionary<int, CombatEntity>();
+        // public List<RoundAction> RoundActions { get; set; } = new List<RoundAction>();
+        //
+        //
+        // public override void Update()
+        // {
+        //
+        // }
+        //
+        // public CombatEntity AddHeroEntity(int seat)
+        // {
+        //     var entity = AddChild<CombatEntity>();
+        //     entity.IsHero = true;
+        //     HeroEntities.Add(seat, entity);
+        //     entity.SeatNumber = seat;
+        //     return entity;
+        // }
+        //
+        // public CombatEntity AddMonsterEntity(int seat)
+        // {
+        //     var entity = AddChild<CombatEntity>();
+        //     entity.IsHero = false;
+        //     EnemyEntities.Add(seat, entity);
+        //     entity.SeatNumber = seat;
+        //     return entity;
+        // }
+        //
+        // public CombatEntity GetHero(int seat)
+        // {
+        //     return HeroEntities[seat];
+        // }
+        //
+        // public CombatEntity GetMonster(int seat)
+        // {
+        //     return EnemyEntities[seat];
+        // }
+        //
         public void OnEntityDead(EntityDeadEvent evnt)
         {
             var deadEntity = evnt.DeadEntity;
-            if (deadEntity is CombatEntity combatEntity)
-            {
-                if (combatEntity.IsHero) HeroEntities.Remove(combatEntity.SeatNumber);
-                else EnemyEntities.Remove(combatEntity.SeatNumber);
-            }
+            // if (deadEntity is CombatEntity combatEntity)
+            // {
+            //     if (combatEntity.IsHero) HeroEntities.Remove(combatEntity.SeatNumber);
+            //     else EnemyEntities.Remove(combatEntity.SeatNumber);
+            // }
             Entity.Destroy(deadEntity);
         }
-
-        public async void StartCombat()
-        {
-            RefreshRoundActions();
-            CombatEntity previousCreator = null;
-            foreach (var item in RoundActions)
-            {
-                if (item.Creator.GetComponent<HealthPointComponent>().CheckDead() || item.Target.GetComponent<HealthPointComponent>().CheckDead())
-                {
-                    continue;
-                }
-                if (item.Target == previousCreator)
-                {
-                    await TimeHelper.WaitAsync(previousCreator.JumpToTime);
-                }
-                await item.ApplyRound();
-                previousCreator = item.Creator;
-            }
-            await TimeHelper.WaitAsync(1000);
-            if (HeroEntities.Count == 0 || EnemyEntities.Count == 0)
-            {
-                HeroEntities.Clear();
-                EnemyEntities.Clear();
-                await TimeHelper.WaitAsync(2000);
-                this.Publish(new CombatEndEvent());
-                return;
-            }
-            StartCombat();
-        }
-
-        public void RefreshRoundActions()
-        {
-            foreach (var item in RoundActions)
-            {
-                Entity.Destroy(item);
-            }
-            RoundActions.Clear();
-
-            foreach (var item in HeroEntities)
-            {
-                if (item.Value.RoundAbility.TryMakeAction(out var turnAction))
-                {
-                    if (EnemyEntities.ContainsKey(item.Key))
-                    {
-                        turnAction.Target = EnemyEntities[item.Key];
-                    }
-                    else
-                    {
-                        turnAction.Target = EnemyEntities.Values.ToArray().First();
-                    }
-                    RoundActions.Add(turnAction);
-                }
-            }
-            foreach (var item in EnemyEntities)
-            {
-                if (item.Value.RoundAbility.TryMakeAction(out var roundAction))
-                {
-                    if (HeroEntities.ContainsKey(item.Key))
-                    {
-                        roundAction.Target = HeroEntities[item.Key];
-                    }
-                    else
-                    {
-                        roundAction.Target = HeroEntities.Values.ToArray().First();
-                    }
-                    RoundActions.Add(roundAction);
-                }
-            }
-        }
-        #endregion
+        //
+        // public async void StartCombat()
+        // {
+        //     RefreshRoundActions();
+        //     CombatEntity previousCreator = null;
+        //     foreach (var item in RoundActions)
+        //     {
+        //         if (item.Creator.GetComponent<HealthPointComponent>().CheckDead() || item.Target.GetComponent<HealthPointComponent>().CheckDead())
+        //         {
+        //             continue;
+        //         }
+        //         if (item.Target == previousCreator)
+        //         {
+        //             await TimeHelper.WaitAsync(previousCreator.JumpToTime);
+        //         }
+        //         await item.ApplyRound();
+        //         previousCreator = item.Creator;
+        //     }
+        //     await TimeHelper.WaitAsync(1000);
+        //     if (HeroEntities.Count == 0 || EnemyEntities.Count == 0)
+        //     {
+        //         HeroEntities.Clear();
+        //         EnemyEntities.Clear();
+        //         await TimeHelper.WaitAsync(2000);
+        //         this.Publish(new CombatEndEvent());
+        //         return;
+        //     }
+        //     StartCombat();
+        // }
+        //
+        // public void RefreshRoundActions()
+        // {
+        //     foreach (var item in RoundActions)
+        //     {
+        //         Entity.Destroy(item);
+        //     }
+        //     RoundActions.Clear();
+        //
+        //     foreach (var item in HeroEntities)
+        //     {
+        //         if (item.Value.RoundAbility.TryMakeAction(out var turnAction))
+        //         {
+        //             if (EnemyEntities.ContainsKey(item.Key))
+        //             {
+        //                 turnAction.Target = EnemyEntities[item.Key];
+        //             }
+        //             else
+        //             {
+        //                 turnAction.Target = EnemyEntities.Values.ToArray().First();
+        //             }
+        //             RoundActions.Add(turnAction);
+        //         }
+        //     }
+        //     foreach (var item in EnemyEntities)
+        //     {
+        //         if (item.Value.RoundAbility.TryMakeAction(out var roundAction))
+        //         {
+        //             if (HeroEntities.ContainsKey(item.Key))
+        //             {
+        //                 roundAction.Target = HeroEntities[item.Key];
+        //             }
+        //             else
+        //             {
+        //                 roundAction.Target = HeroEntities.Values.ToArray().First();
+        //             }
+        //             RoundActions.Add(roundAction);
+        //         }
+        //     }
+        // }
+        // #endregion
     }
 
     public class CombatEndEvent

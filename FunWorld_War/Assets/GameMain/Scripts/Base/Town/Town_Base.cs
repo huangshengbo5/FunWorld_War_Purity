@@ -96,17 +96,20 @@ using Random = UnityEngine.Random;
             {
                 for (int i = 0; i < hits.Length; i++)
                 {
-                    var tempSolider = hits[i].GetComponent<Solider>(); 
-                    if (tempSolider && tempSolider.CampType != this.Camp() && tempSolider.GetTargetObject() == this)
+                    var tempSolider = hits[i].GetComponent<Solider>();
+                    if (tempSolider)
                     {
-                        enemySoliders.Add(tempSolider);
+                        if (tempSolider && tempSolider.CampType != this.Camp() && tempSolider.GetTargetObject() == this)
+                        {
+                            enemySoliders.Add(tempSolider);
+                        }
                     }
                 }
             }
             return enemySoliders.Count > 0;
         }
         
-        public  Vector3 GetInteractPoint()
+        public override Vector3 GetInteractPoint()
         {
             
             if (SpawnerPoints == null || SpawnerPoints.Count == 0)

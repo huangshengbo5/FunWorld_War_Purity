@@ -11,7 +11,7 @@ namespace BehaviorDesigner.Runtime.Tasks
             if (In_TargetTrans == null) return false;
             var townTrans = In_TargetTrans.Value;
             if (townTrans is null) return false;
-            var townObject = townTrans.GetComponent<Town>();
+            var townObject = townTrans.GetComponent<BaseObject>();
             var ownerTrans = Owner.GetComponent<Transform>();
             Solider solider;
             if (townTrans.TryGetComponent<Solider>(out solider))

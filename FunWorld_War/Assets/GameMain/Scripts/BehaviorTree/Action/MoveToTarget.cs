@@ -32,7 +32,7 @@ namespace BehaviorDesigner.Runtime.Tasks
             
             if (targetTrans != null && targetTrans.Value != null)
             {
-                var targetObject = targetTrans.Value.GetComponent<Town>();
+                var targetObject = targetTrans.Value.GetComponent<BaseObject>();
                 nav.isStopped = false;
                 nav.SetDestination(targetObject.GetInteractPoint());
                 selfSolider.ChangeState(Solider.State.Moving);

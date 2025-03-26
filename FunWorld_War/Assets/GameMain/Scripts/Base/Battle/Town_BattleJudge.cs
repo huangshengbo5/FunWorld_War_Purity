@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//单个城池的战场评判
 public class Town_BattleJudge
 {
     //参与夺城的部队
     private Dictionary<CampType, List<SoliderCommander>> LeftSoliderCommanders;
     private List<Solider> fightingSoliders;
-    private List<Solider> noFightingSoliders ;
+    private List<Solider> noFightingSoliders;
     //当前争夺的城池
     private Town ownerTown;
 
