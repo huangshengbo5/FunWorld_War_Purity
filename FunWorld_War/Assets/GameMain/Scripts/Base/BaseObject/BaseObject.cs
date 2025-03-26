@@ -1,35 +1,29 @@
-using System;using GameFramework.ObjectPool;
+using System;
+using EGamePlay;
+using GameFramework.ObjectPool;
 using UnityEngine;
 
 public class BaseObject :  MonoBehaviour
 {
+    //todo 需要删除
     public int MaxHp;
-    private int Id;
     //血量
     protected int CurHp;
     
-    
+    private long Id;
     [HideInInspector]
-    public int ID 
+    public long ID 
     {
         get { return Id; }
     }
 
     private void Awake()
     {
-        Id = gameObject.GetHashCode();
-    }
-    
-    public virtual Vector3 GetInteractPoint(Vector3 position = new Vector3())
-    {
-        return transform.position;
+        Id = IdFactory.NewInstanceId();
     }
     
     public virtual ObjectType ObjectType()
     {
         return global::ObjectType.None;
     }
-    
-    public virtual void BeAttack(BaseObject attacker, int damageNum) { }
-    public virtual void OnClick(){}
 }

@@ -106,8 +106,9 @@ using Random = UnityEngine.Random;
             return enemySoliders.Count > 0;
         }
         
-        public override Vector3 GetInteractPoint(Vector3 position)
+        public  Vector3 GetInteractPoint()
         {
+            
             if (SpawnerPoints == null || SpawnerPoints.Count == 0)
             {
                 if (SpawnerPoints == null)
@@ -127,7 +128,7 @@ using Random = UnityEngine.Random;
         }
         
         //被点击选中
-        public override void OnClick()
+        public void OnClick()
         {
             if (ownerCamp == CampType.Player) //处理我方城池被选中逻辑
             {

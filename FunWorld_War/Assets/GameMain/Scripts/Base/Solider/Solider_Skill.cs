@@ -106,6 +106,8 @@ public partial class Solider
 
     private void OnReceiveDamage(Entity combatAction)
     {
+        var damageAction = combatAction as DamageAction;
+        print($"Boss ReciveDamage:{damageAction.DamageValue}");
         // var damageAction = combatAction as DamageAction;
         // HealthBarImage.fillAmount = CombatEntity.CurrentHealth.ToPercent();
         // var damageText = GameObject.Instantiate(DamageText);

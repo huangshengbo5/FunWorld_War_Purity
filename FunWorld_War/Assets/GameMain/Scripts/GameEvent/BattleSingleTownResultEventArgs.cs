@@ -5,7 +5,7 @@ public class BattleSingleTownResultEventArgs : GameEventArgs
 {
     public static readonly int EventId = typeof(BattleSingleTownResultEventArgs).GetHashCode();
     
-    public int TownId
+    public long TownId
     {
         get;
         private set;
@@ -17,7 +17,7 @@ public class BattleSingleTownResultEventArgs : GameEventArgs
         private set;
     }
     
-    public static BattleSingleTownResultEventArgs Create(int townId,CampType ownerType)
+    public static BattleSingleTownResultEventArgs Create(long townId,CampType ownerType)
     {
         BattleSingleTownResultEventArgs battleSingleTownResultEventArgs = ReferencePool.Acquire<BattleSingleTownResultEventArgs>();
         battleSingleTownResultEventArgs.TownId = townId;

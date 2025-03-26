@@ -32,7 +32,7 @@ namespace BehaviorDesigner.Runtime.Tasks
             
             if (targetTrans != null && targetTrans.Value != null)
             {
-                var targetObject = targetTrans.Value.GetComponent<BaseObject>();
+                var targetObject = targetTrans.Value.GetComponent<Town>();
                 nav.isStopped = false;
                 nav.SetDestination(targetObject.GetInteractPoint());
                 selfSolider.ChangeState(Solider.State.Moving);
@@ -51,7 +51,7 @@ namespace BehaviorDesigner.Runtime.Tasks
             yield return new WaitForSeconds(delay);
             if (targetTrans != null && targetTrans.Value != null)
             {
-                var targetObject = targetTrans.Value.GetComponent<BaseObject>();
+                var targetObject = targetTrans.Value.GetComponent<Town>();
                 nav.isStopped = false;
                 nav.SetDestination(targetObject.GetInteractPoint());
                 selfSolider.ChangeState(Solider.State.Moving);

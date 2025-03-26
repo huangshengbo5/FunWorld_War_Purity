@@ -164,7 +164,7 @@ public partial class Town : BaseObject
     }
     
     //被攻击
-    public override void BeAttack(BaseObject attacker, int damageNum)
+    public void BeAttack(BaseObject attacker, int damageNum)
     {
         if (IsOccupied == false)
         {

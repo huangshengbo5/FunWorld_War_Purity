@@ -313,7 +313,7 @@ public partial class Solider : BaseObject,IReference
     }
 
     //被攻击
-    public override void BeAttack(BaseObject attacker, int damageNum)
+    public void BeAttack(BaseObject attacker, int damageNum)
     {
         if (isKill)
         {

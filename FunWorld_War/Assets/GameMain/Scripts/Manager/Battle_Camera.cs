@@ -20,7 +20,7 @@ public class Battle_Camera : MonoBehaviour
         if (Physics.Raycast(ray,out hit))
         {
             var baseObj = hit.collider.gameObject;
-            var Town = baseObj.GetComponent<BaseObject>();
+            var Town = baseObj.GetComponent<Town>();
             if (Town)
             {
                 Town.OnClick();
