@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Solider.CombatEntity -> Solider.SpellComponent施法组件 : SpellWithPoint(开始释放一个技能)
+Solider.SpellComponent施法组件 --> Solider.CombatEntity : 获取一个SpellAction施法行为
+Solider.CombatEntity -> Solider.SpellComponent施法组件: 返回一个SpellAction
+Solider.SpellComponent施法组件 -> SpellAction : SpellSkill施法
+SpellAction->SpellAction : PreProcess前置处理
+SpellAction --> Solider.CombatEntity : 增加一个 AbilityExecution
+Solider.CombatEntity  -> SpellAction : 返回 AbilityExecution技能执行体
+SpellAction -> AbilityExecution : LoadExecutionEffects
+SpellAction -> AbilityExecution : BeginExecute
+AbilityExecution --> Solider.CombatEntity : 设置SpellingExecution = AbilityExecution
+AbilityExecution -> ExecutionClipComponent : BeginExecute
+ExecutionClipComponent -> ExecuteClip: BeginExecute
+ExecuteClip -> ExecuteClip.ExecuteTimeTriggerComponent.GameTimer: UpdateAsFinish
+ExecuteClip.ExecuteTimeTriggerComponent.GameTimer --> ExecuteClip : TriggerEffect
+ExecuteClip-> ExecutionAnimationComponent : PlayAnimation
+ExecuteClip-> ExecutionCollisionItemComponent : SpawnCollisionItem
+ExecutionCollisionItemComponent -> AblityItem : CreateAbilityItemProxyObj：创建技能碰撞体
+AblityItem -> OnTriggerEnterCallBack: 设置碰撞检测回调事件
+OnTriggerEnterCallBack --> AblityItem: 碰撞时执行回调事件
+AblityItem -> CollisionAction : ApplyCollision
+CollisionAction --> AblityItem:OnTriggerEvent
+AblityItem->AbilityTriggerComponent: OnTrigger
+AbilityTriggerComponent -> EffectAssignAbility : AssignEffect
+EffectAssignAbility -> EffectDamageComponent : OnTriggerApplyEffect
+EffectDamageComponent -> DamageActionAbility : ApplyDamage
+DamageActionAbility -> HealthPointComponent : ReceiveDamage造成伤害，修改数值
+DamageActionAbility -> ActionPointComponent : TriggerActionPoint(PostReceiveDamage)
+ActionPointComponent --> Solider.CombatEntity : OnReceiveDamage造成伤害，做出表现
+
+
+
+
+
+
+@enduml
