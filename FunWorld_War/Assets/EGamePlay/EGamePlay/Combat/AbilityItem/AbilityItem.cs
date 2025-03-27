@@ -86,7 +86,7 @@ namespace EGamePlay.Combat
         {
             var clipData = GetComponent<AbilityItemCollisionExecuteComponent>().ExecuteClipData;
             var actionEvenData = GetComponent<AbilityItemCollisionExecuteComponent>().GetItemEffect<ActionEventEffect>();
-            if (clipData.ExecuteClipType == ExecuteClipType.ItemExecute && actionEvenData.FireType == FireType.EndTrigger)
+            if (actionEvenData != null && clipData.ExecuteClipType == ExecuteClipType.ItemExecute && actionEvenData.FireType == FireType.EndTrigger)
             {
                 OnTriggerEvent(null);
             }

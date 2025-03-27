@@ -17,6 +17,5 @@ namespace EGamePlay.Combat
             Log.Debug("OnTriggerEnterCallBack.OnTriggerEnter!!!");
             OnTriggerEnterCallbackAction?.Invoke(other);
         }
-        
     }
 }

@@ -294,7 +294,7 @@ public partial class Solider : BaseObject,IReference
             var targetSolider = targetObject as Solider;
             if (!targetSolider.IsDead())
             {
-                targetSolider.BeAttack(this,this.Damage);
+                //targetSolider.BeAttack(this,this.Damage);
             }
             else
             {
@@ -306,7 +306,7 @@ public partial class Solider : BaseObject,IReference
             var targetTown = targetObject as Town;
             if (targetTown.IsOccupied == false)
             {
-                targetTown.BeAttack(this,this.Damage);
+                //targetTown.BeAttack(this,this.Damage);
             }
         }
     }

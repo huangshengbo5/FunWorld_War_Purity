@@ -22,6 +22,7 @@ public partial class Town
         CombatEntity = CombatContext.Instance.AddChild<CombatEntity>();
         CombatContext.Instance.Object2Entities.Add(gameObject, CombatEntity);
         CombatEntity.IsHero = false;
+        CombatEntity.CampType = campType;
         //CombatEntity.HeroObject = gameObject;
         CombatEntity.ModelTrans = gameObject.transform;
         CombatEntity.ListenActionPoint(ActionPointType.PostReceiveDamage, OnReceiveDamage);
@@ -31,6 +32,11 @@ public partial class Town
     private void OnReceiveDamage(Entity combatAction)
     {
         var damageAction = combatAction as DamageAction;
+        if (IsOccupied == false)
+        {
+            var combatActionParent = (CombatEntity)combatAction.Parent;
+            BeAttack(combatActionParent.HeroObject.GetComponent<BaseObject>(),1);
+        }
         print($"Boss ReciveDamage:{damageAction.DamageValue}");
         // var damageAction = combatAction as DamageAction;
         // HealthBarImage.fillAmount = CombatEntity.CurrentHealth.ToPercent();

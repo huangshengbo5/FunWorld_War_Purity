@@ -21,6 +21,7 @@ public partial class Solider
         CombatEntity = CombatContext.Instance.AddChild<CombatEntity>();
         CombatContext.Instance.Object2Entities.Add(gameObject, CombatEntity);
         CombatEntity.IsHero = true;
+        CombatEntity.CampType = campType;
         CombatEntity.HeroObject = gameObject;
         CombatEntity.ModelTrans = gameObject.transform.GetChild(0);
         CombatEntity.ListenActionPoint(ActionPointType.PreSpell, OnPreSpell);
@@ -124,7 +125,10 @@ public partial class Solider
     private void OnReceiveDamage(Entity combatAction)
     {
         var damageAction = combatAction as DamageAction;
-        print($"Boss ReciveDamage:{damageAction.DamageValue}");
+        var combatActionParent = (CombatEntity)combatAction.Parent;
+        BeAttack(combatActionParent.HeroObject.GetComponent<BaseObject>(),1);
+        print($"Solider ReciveDamage:{damageAction.DamageValue}");
+        
         // var damageAction = combatAction as DamageAction;
         // HealthBarImage.fillAmount = CombatEntity.CurrentHealth.ToPercent();
         // var damageText = GameObject.Instantiate(DamageText);
@@ -221,14 +225,20 @@ public partial class Solider
         AnimationComponent.PlayFade(animationClip);
     }
     
+    Ability CurSkill;
     //释放技能
     public void DoAttack()
     {
+        if (CurSkill != null && CurSkill.Spelling)
+        {
+            //上个技能尚未结束
+            return;
+        }
         ChangeAnimatorState(State.Attack_Enemy);
         //CombatEntity.GetComponent<SkillComponent>()
         var randomIndex = Random.Range(0, AllSkills.Count);
-        var skill = AllSkills[randomIndex];
-        CombatEntity.GetComponent<SpellComponent>().SpellWithTarget(skill,targetComBatEntity);
+        CurSkill = AllSkills[randomIndex];
+        CombatEntity.GetComponent<SpellComponent>().SpellWithPoint(CurSkill,transform.position);
     }
     
 }

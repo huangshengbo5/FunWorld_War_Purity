@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
     public partial class Town :BaseObject
@@ -9,7 +10,7 @@ using Random = UnityEngine.Random;
         //默认生成士兵数量
         public int DefaultMaxSoliderNum;
 
-        public CampType ownerCamp = global::CampType.None;
+        [FormerlySerializedAs("ownerCamp")] public CampType campType = global::CampType.None;
         
         protected int curSoliderNum;
 
@@ -50,14 +51,14 @@ using Random = UnityEngine.Random;
 
         public CampType Camp()
         {
-            return ownerCamp;
+            return campType;
         }
 
         //被占领
         public void BeOccupied(CampType campType)
         {
-            ownerCamp = campType;
-            DelegateTownCampChange.Invoke(ownerCamp);
+            this.campType = campType;
+            DelegateTownCampChange.Invoke(this.campType);
             ResetData();
         }
         
@@ -133,7 +134,7 @@ using Random = UnityEngine.Random;
         //被点击选中
         public void OnClick()
         {
-            if (ownerCamp == CampType.Player) //处理我方城池被选中逻辑
+            if (campType == CampType.Player) //处理我方城池被选中逻辑
             {
                 GameEntry.Event.Fire(this,BattleClickPlayerTownEventArgs.Create(this));
                 //CreateClickUI_Player();

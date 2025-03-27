@@ -31,9 +31,7 @@ namespace BehaviorDesigner.Runtime.Tasks
                     return false;
                 }
             }
-
             var attackRedius = Owner.GetComponent<Solider>().AttackRedius;
-            
             if (Vector3.Distance(ownerTrans.position,townObject.GetInteractPoint()) < attackRedius)
             {
                 return true;
