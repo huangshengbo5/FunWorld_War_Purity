@@ -12,7 +12,7 @@ public class TouchComponent_Mobile : TouchComponent
     private bool isLongPressing;
     private Vector2 touchStartPos;
 
-    private void Update()
+    private void LateUpdate()
     {
         if (Input.touchCount == 1 )
         {
@@ -43,6 +43,11 @@ public class TouchComponent_Mobile : TouchComponent
                 {
                     HandleTap(touch.position);
                 }
+                break;
+            case TouchPhase.Moved:
+                var direction = touch.position - touchStartPos;
+                touchStartPos = touch.position;
+                TriggerSingleMove(direction);
                 break;
         }
     }

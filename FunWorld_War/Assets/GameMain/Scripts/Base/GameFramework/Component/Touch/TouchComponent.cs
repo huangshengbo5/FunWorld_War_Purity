@@ -19,6 +19,9 @@ public class TouchComponent : MonoBehaviour
 
     //双指拖动
     public event Action<Vector2> OnTwoFingerDrag;
+
+    //单指拖动
+    public event Action<Vector2> OnSingleFingerDrag;
     
 
     public TouchComponent Instance()
@@ -35,6 +38,11 @@ public class TouchComponent : MonoBehaviour
         OnSingleTap?.Invoke(position);
     }
 
+    public void TriggerSingleMove(Vector2 direction)
+    {
+        OnSingleFingerDrag?.Invoke(direction);
+    }
+
     public void TriggerDoubleTap(Vector2 position)
     {
         OnDoubleTap?.Invoke(position);
@@ -44,6 +52,7 @@ public class TouchComponent : MonoBehaviour
     {
         OnLongPressd?.Invoke(position);
     }
+    
 
     public void TriggerPinch(Vector2 position, float pinch)
     {

@@ -47,18 +47,19 @@ namespace EGamePlay.Combat
         [DelayedProperty, JsonIgnore]
         public GameObject ObjAsset;
         public ExecutionTargetInputType TargetInputType;
-        [ShowIf("TargetInputType", ExecutionTargetInputType.Point)]
-        [LabelText("范围指示器"), JsonIgnore]
-        public GameObject RangeIndicatorObjAsset;
-        [ShowIf("TargetInputType", ExecutionTargetInputType.Point)]
-        [LabelText("目标点指示器"), JsonIgnore]
-        public GameObject PointIndicatorObjAsset;
-        [ShowIf("TargetInputType", ExecutionTargetInputType.Point)]
-        [LabelText("朝向指示器"), JsonIgnore]
-        public GameObject DirectionIndicatorObjAsset;
+        // [ShowIf("TargetInputType", ExecutionTargetInputType.Point)]
+        // [LabelText("范围指示器"), JsonIgnore]
+        // public GameObject RangeIndicatorObjAsset;
+        // [ShowIf("TargetInputType", ExecutionTargetInputType.Point)]
+        // [LabelText("目标点指示器"), JsonIgnore]
+        // public GameObject PointIndicatorObjAsset;
+        // [ShowIf("TargetInputType", ExecutionTargetInputType.Point)]
+        // [LabelText("朝向指示器"), JsonIgnore]
+        // public GameObject DirectionIndicatorObjAsset;
         [LabelText("起始坐标偏移")]
         public Vector3 Offset;
 
+        //技能可执行体片段
         [ReadOnly, Space(10)]
         public List<ExecuteClipData> ExecuteClips = new List<ExecuteClipData>();
 
