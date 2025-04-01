@@ -7,7 +7,6 @@ using UnityEngine.Rendering;
 
 public class TouchComponent_Editor : TouchComponent
 {
-    
     private float doubleTapTimeThreshold = 0.3f;
     private float longPressTimeThreshold = 0.5f;
     private float minPinchDistance = 10f;
@@ -17,8 +16,7 @@ public class TouchComponent_Editor : TouchComponent
     private float touchStartTime;
     private bool isLongPressing;
     private Vector2 touchStartPos;
-
-
+    
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -28,6 +26,22 @@ public class TouchComponent_Editor : TouchComponent
                 HanlderMouseButtonUp();
                 GameEntry.Event.Fire(this, TouchClickNotUIEventArgs.Create());
             }
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            TriggerSingleMove(new Vector2(1,0));
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            TriggerSingleMove(new Vector2(-1,0));
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            TriggerSingleMove(new Vector2(0,1));
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            TriggerSingleMove(new Vector2(0,-1));
         }
     }
 
