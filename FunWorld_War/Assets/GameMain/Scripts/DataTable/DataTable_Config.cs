@@ -14,5 +14,6 @@ public static class DataTable_Config
         "Model",
         "Fortress",
         "AbilityConfig",  //技能表
+        "Diamond", //宝石表，属性和技能加成所在表
     };
 }

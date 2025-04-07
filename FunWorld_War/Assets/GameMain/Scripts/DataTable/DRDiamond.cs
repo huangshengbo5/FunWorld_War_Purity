@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2025-04-07 17:17:31.852
+// 生成时间：2025-04-07 17:17:31.928
 //------------------------------------------------------------
 
 using GameFramework;
@@ -21,12 +21,12 @@ using UnityGameFramework.Runtime;
     /// <summary>
     /// 。
     /// </summary>
-    public class DRScene : DataRowBase
+    public class DRDiamond : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取。
+        /// 获取宝石id。
         /// </summary>
         public override int Id
         {
@@ -37,18 +37,45 @@ using UnityGameFramework.Runtime;
         }
 
         /// <summary>
-        /// 获取场景名称。
+        /// 获取增加固定属性数值。格式为：属性Id|数值;属性Id|数值……（实际使用会除以@item_attritube%param_rate）。
         /// </summary>
-        public string AssetName
+        public string Attribute_fix
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取。
+        /// 获取减少固定属性数值。格式为：属性Id|数值;属性Id|数值……（实际使用会除以@item_attritube%param_rate）。
         /// </summary>
-        public int BGMusicId
+        public string Attribute_fixminus
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取增加百分比属性数值。格式为：属性Id|数值;属性Id|数值……（1固定表示10000分之一）。
+        /// </summary>
+        public string Attribute_percent
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取减少百分比属性数值。格式为：属性Id|数值;属性Id|数值……（1固定表示10000分之一）。
+        /// </summary>
+        public string Attribute_percentminus
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取增加技能id,skilllevelID。
+        /// </summary>
+        public int Add_kill
         {
             get;
             private set;
@@ -65,8 +92,11 @@ using UnityGameFramework.Runtime;
             int index = 0;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            AssetName = columnStrings[index++];
-            BGMusicId = int.Parse(columnStrings[index++]);
+            Attribute_fix = columnStrings[index++];
+            Attribute_fixminus = columnStrings[index++];
+            Attribute_percent = columnStrings[index++];
+            Attribute_percentminus = columnStrings[index++];
+            Add_kill = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -79,8 +109,11 @@ using UnityGameFramework.Runtime;
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    AssetName = binaryReader.ReadString();
-                    BGMusicId = binaryReader.Read7BitEncodedInt32();
+                    Attribute_fix = binaryReader.ReadString();
+                    Attribute_fixminus = binaryReader.ReadString();
+                    Attribute_percent = binaryReader.ReadString();
+                    Attribute_percentminus = binaryReader.ReadString();
+                    Add_kill = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

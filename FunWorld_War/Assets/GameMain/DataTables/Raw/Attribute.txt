@@ -1,9 +1,9 @@
-Id	ValueName		Type	ShowNameID	Icon
-int	string		int	int	int
-属性id	属性名字注释 属性类型1=固定值2=万分比	属性名字文本Multilingual的id	属性图标图标名字或路径		
-1001	Att	攻击	1	1000005	0
-1002	Hp	生命	1	1000006	0
-1003	Speed	速度	1	1000007	0
-1004	Vision	视野	1	1000008	0
-2001	Att_ExtraPer	攻击百分比	2	1000009	0
-2002	HP_ExtraPer	生命百分比	2	1000010	0
+Id	ValueName		Type	Param_rate	Digit_decimal	Range_min	Range_max	ShowNameID	Icon
+int	string		int	int	int	int	int	int	int
+属性id	属性名字注释 属性类型1=固定值2=万分比	属性名字文本Multilingual的id	属性类型，1：普通，2：百分比	参数1，表示在使用时该属性的实际数值会除以一个系数。	保留小数点精度，0=整数，1=一位小数，2=两位小数	经过参数1换算过后的数值范围的最小值（仅针对角色整体属性，单个装备不限制）	经过参数1换算过后的数值范围的最大值（仅针对角色整体属性，单个装备不限制）		
+1001	Att	攻击	1	1	0	0	99999999	1000005	0
+1002	Hp	生命	1	1	0	0	99999999	1000006	0
+1003	Speed	速度	1	1	0	0	99999999	1000007	0
+1004	Vision	视野	1	1	0	0	99999999	1000008	0
+2001	Att_ExtraPer	攻击百分比	2	100	1	0	99999999	1000009	0
+2002	HP_ExtraPer	生命百分比	2	100	1	0	99999999	1000010	0
