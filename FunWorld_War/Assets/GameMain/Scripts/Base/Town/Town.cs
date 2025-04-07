@@ -10,12 +10,6 @@ public partial class Town : BaseObject
 {
     private Town_BattleJudge townBattleJudge;
     private List<SoliderCommander> SoliderCommanders;
-    
-    /// <summary>
-    /// 可以生成的士兵
-    /// </summary>
-    public GameObject ObjSolider;
-
     public Town_BattleJudge TownBattleJudge
     {
         get => townBattleJudge;
@@ -116,20 +110,6 @@ public partial class Town : BaseObject
         CurSoliderNum = 0;
         return soliderCommander;
     }
-    
-    //创建士兵
-    // protected Solider CreateSolider(int index)
-    // {
-    //     var solider = (GameObject)Instantiate(ObjSolider);
-    //     solider.name = string.Format("Solider_{0}_{1}",ownerCamp.ToString(),index) ;
-    //     var soliderTans = solider.GetComponent<Transform>();
-    //     soliderTans.position = GetSoliderPosition();
-    //     soliderTans.localScale = Vector3.one;
-    //     soliderTans.rotation = Quaternion.identity;
-    //     var soliderCom = solider.GetComponent<Solider>();
-    //     soliderCom.OwnerTown = this;
-    //     return soliderCom;
-    // }
 
     //获取士兵位置
     Vector3 GetSoliderPosition()

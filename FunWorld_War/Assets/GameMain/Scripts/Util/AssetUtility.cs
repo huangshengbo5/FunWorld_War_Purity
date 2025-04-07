@@ -75,6 +75,11 @@ public static class AssetUtility
     {
         return "Assets/GameMain/Res/Prefab/Solider/Solider.prefab";
     }
+    
+    public static string GetTownAssetPath()
+    {
+        return "Assets/GameMain/Res/Prefab/Town/Town.prefab";
+    }
 
     public static string GetAbilityObjectSkillPath(int id)
     {
