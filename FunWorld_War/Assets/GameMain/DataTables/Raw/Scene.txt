@@ -3,3 +3,4 @@ int		string	int
 		场景名称	
 1	测试场景	FightTest1	1
 2	技能测试场景	ExecutionLinkScene	1
+3	战斗场景	map_1V1	1

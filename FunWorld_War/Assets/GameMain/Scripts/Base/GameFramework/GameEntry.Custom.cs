@@ -16,9 +16,11 @@ public partial class GameEntry : MonoBehaviour
         get;
         private set;
     }
-
+    
     public static DTManager DTManager;
     public static TouchComponent Touch { get; private set; }
+    
+    public static ScriptConfigComponent ScriptConfig { get; private set; }
     private  void InitCustomComponents()
     {
 #if UNITY_EDITOR
@@ -27,6 +29,7 @@ public partial class GameEntry : MonoBehaviour
         Touch = gameObject.GetOrAddComponent<TouchComponent_Mobile>().Instance();
 #endif
         DTManager = new DTManager();
+        ScriptConfig = UnityGameFramework.Runtime.GameEntry.GetComponent<ScriptConfigComponent>();
     }
 
     private static void InitCustomDebuggers()
