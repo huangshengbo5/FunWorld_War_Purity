@@ -48,7 +48,7 @@ public class ProcedureMenu : ProcedureBase
             //GameEntry.UI.CloseUIForm(UIFormId.MenuForm);
             //procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Main"));
             procedureOwner.SetData<VarInt32>("NextSceneId", (int)sceneId);
-            var gameMode = GameEntry.ScriptConfig.SceneConfig.SceneData[sceneId];
+            var gameMode = GameEntry.ScriptConfig.SceneConfig.GetGameMode(sceneId);
             procedureOwner.SetData<VarByte>("GameMode",(byte)gameMode);
             ChangeState<ProcedureChangeScene>(procedureOwner);
         }

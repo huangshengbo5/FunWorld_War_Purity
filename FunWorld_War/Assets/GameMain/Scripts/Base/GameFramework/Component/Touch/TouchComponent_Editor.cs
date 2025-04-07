@@ -17,7 +17,7 @@ public class TouchComponent_Editor : TouchComponent
     private bool isLongPressing;
     private Vector2 touchStartPos;
     
-    void Update()
+    void LateUpdate()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -27,21 +27,21 @@ public class TouchComponent_Editor : TouchComponent
                 GameEntry.Event.Fire(this, TouchClickNotUIEventArgs.Create());
             }
         }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            TriggerSingleMove(new Vector2(1,0));
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            TriggerSingleMove(new Vector2(-1,0));
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.W))
         {
             TriggerSingleMove(new Vector2(0,1));
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKey(KeyCode.S))
         {
             TriggerSingleMove(new Vector2(0,-1));
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            TriggerSingleMove(new Vector2(1,0));
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            TriggerSingleMove(new Vector2(-1,0));
         }
     }
 
