@@ -32,7 +32,7 @@ public partial class Town : BaseObject
         DelegateTownSoliderNumChange(curSoliderNum, DefaultMaxSoliderNum);
     }
     
-    private void Init()
+    public void Init()
     {
         TownHUD.Init(this);
         ResetData();

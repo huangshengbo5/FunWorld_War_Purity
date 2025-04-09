@@ -23,6 +23,11 @@ public class TownHUD : MonoBehaviour
         ownerTown.DelegateTownCampChange += OnTownCampChange;
         ownerTown.DelegateTownHpChange += OnTownHpChange;
         ownerTown.DelegateTownSoliderNumChange += OnTownSoliderNumChange;
+
+        this.transform.parent.transform.forward = new Vector3(90, 0, 0);
+        var rotation = this.transform.parent.transform.rotation;
+        Quaternion quaternion = Quaternion.Euler(90,0,0);
+        this.transform.parent.transform.rotation = quaternion;
     }
 
     public void OnTownCampChange(CampType campType)
@@ -69,7 +74,8 @@ public class TownHUD : MonoBehaviour
     
     private void LateUpdate()
     {
-        this.transform.forward = Camera.main.transform.forward;
+        //this.transform.forward = Camera.current.transform.forward;
+        
     }
 
     public void SwitchEnterBtn(bool isShow = true)
