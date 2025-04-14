@@ -31,7 +31,7 @@ namespace EGamePlay.Combat
     }
 
     /// <summary>
-    /// 施加状态行动
+    /// ??????ж?
     /// </summary>
     public class AddStatusAction : Entity, IActionExecute
     {
@@ -39,13 +39,13 @@ namespace EGamePlay.Combat
         public AddStatusEffect AddStatusEffect => SourceAssignAction.AbilityEffect.EffectConfig as AddStatusEffect;
         public Ability BuffAbility { get; set; }
 
-        /// 行动能力
+        /// ?ж?????
         public Entity ActionAbility { get; set; }
-        /// 效果赋给行动源
+        /// Ч???????ж??
         public EffectAssignAction SourceAssignAction { get; set; }
-        /// 行动实体
+        /// ?ж????
         public CombatEntity Creator { get; set; }
-        /// 目标对象
+        /// ??????
         public Entity Target { get; set; }
 
 
@@ -54,7 +54,7 @@ namespace EGamePlay.Combat
             Entity.Destroy(this);
         }
 
-        //前置处理
+        //??????
         private void PreProcess()
         {
 
@@ -66,7 +66,7 @@ namespace EGamePlay.Combat
 
 //#if EGAMEPLAY_EXCEL
 //            var statusConfig = AddStatusEffect.AddStatusConfig;
-//            var canStack = statusConfig.CanStack == "是";
+//            var canStack = statusConfig.CanStack == "??";
 //            var enabledLogicTrigger = statusConfig.EnabledLogicTrigger();
 //#else
             var buffObject = AddStatusEffect.AddStatus;
@@ -76,7 +76,7 @@ namespace EGamePlay.Combat
                 buffObject = AssetUtils.LoadObject<AbilityConfigObject>($"{AbilityManagerObject.BuffResFolder}/Buff_{statusId}");
             }
             var buffConfig = AbilityConfigCategory.Instance.Get(buffObject.Id);
-            var canStack = buffConfig.CanStack == "是";
+            var canStack = buffConfig.CanStack == "??";
 //#endif
             var statusComp = Target.GetComponent<StatusComponent>();
             if (canStack == false)
@@ -113,14 +113,14 @@ namespace EGamePlay.Combat
             FinishAction();
         }
 
-        //后置处理
+        //???????
         private void PostProcess()
         {
             Creator.TriggerActionPoint(ActionPointType.PostGiveStatus, this);
             Target.GetComponent<ActionPointComponent>().TriggerActionPoint(ActionPointType.PostReceiveStatus, this);
         }
 
-        /// 这里处理技能传入的参数数值替换
+        /// ?????????????????????滻
         public void ProcessInputKVParams(Ability ability, Dictionary<string, string> Params)
         {
             foreach (var abilityTrigger in ability.GetComponent<AbilityTriggerComponent>().AbilityTriggers)

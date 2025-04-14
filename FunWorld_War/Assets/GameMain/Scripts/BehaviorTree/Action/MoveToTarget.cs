@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -33,9 +34,27 @@ namespace BehaviorDesigner.Runtime.Tasks
             if (targetTrans != null && targetTrans.Value != null)
             {
                 var targetObject = targetTrans.Value.GetComponent<BaseObject>();
-                nav.isStopped = false;
-                nav.SetDestination(targetObject.GetInteractPoint());
-                selfSolider.ChangeState(Solider.State.Moving);
+               
+                var targetPos = targetObject.GetInteractPoint();
+                // 检查代理是否在 NavMesh 上
+                if (!NavMesh.SamplePosition(selfSolider.transform.position, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
+                {
+                    Debug.LogWarning("Agent is not on NavMesh.");
+                    return;
+                }
+                
+                NavMeshPath path = new NavMeshPath();
+                NavMesh.CalculatePath(selfSolider.transform.position, targetPos, NavMesh.AllAreas, path);
+                if (path.status == NavMeshPathStatus.PathComplete && path.corners.Length > 0 && nav.isOnNavMesh == true) 
+                {
+                    nav.isStopped = false;
+                    nav.SetDestination(targetPos);
+                    selfSolider.ChangeState(Solider.State.Moving);
+                }
+                else
+                {
+                    Debug.LogError($"targetPos:{targetPos} 无法导航到达！！！");
+                }
             }
             else
             {

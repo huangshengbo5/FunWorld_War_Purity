@@ -18,6 +18,7 @@ namespace UnityGameFramework.Editor
         private SerializedProperty m_CachedBytesSize = null;
 
         private HelperInfo<ConfigHelperBase> m_ConfigHelperInfo = new HelperInfo<ConfigHelperBase>("Config");
+        
 
         public override void OnInspectorGUI()
         {

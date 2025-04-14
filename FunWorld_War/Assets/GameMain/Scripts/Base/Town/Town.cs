@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using GameFramework.Event;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Random = System.Random;
@@ -116,10 +117,16 @@ public partial class Town : BaseObject
     {
         var selfPosition = this.gameObject.transform.position;
         var random = new Random();
-        var posx = random.Next((int)selfPosition.x + 3,(int)selfPosition.x + 5);
+        var posx = random.Next((int)selfPosition.x + 2,(int)selfPosition.x + 3);
         //var posy = random.Next((int)selfPosition.y,(int)selfPosition.y+10);
-        var posz = random.Next((int)selfPosition.z + 3,(int)selfPosition.z + 5);
-        return new Vector3(posx,0,posz);
+        var posz = random.Next((int)selfPosition.z + 2,(int)selfPosition.z + 3);
+        var bornPos = new Vector3(posx,0,posz);
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(bornPos,out hit ,1.0f,NavMesh.AllAreas))
+        {
+            bornPos.y = hit.position.y;
+        }
+        return bornPos;
     }
 
     //检查战斗结果

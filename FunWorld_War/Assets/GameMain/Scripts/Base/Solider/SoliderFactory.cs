@@ -36,7 +36,7 @@ public class SoliderFactory
 
     public void Remove(Solider solider)
     {
-        //回收对象
+        //???????
         m_SoliderObjectPool.Unspawn(solider);
     }
     
@@ -50,12 +50,12 @@ public class SoliderFactory
         }
         else
         {
-            var gameObject = GameObject.Instantiate(m_SoliderTempate);
+            var gameObject = GameObject.Instantiate(m_SoliderTempate,soliderConfig.position,Quaternion.identity);
             solider = gameObject.GetComponent<Solider>();
             m_SoliderObjectPool.Register(SoliderPoolItem.Create(solider),true);
             gameObject.name = $"Solider_{soliderConfig.soliderId}";
         }
-        solider.gameObject.transform.position = soliderConfig.position;
+        //solider.gameObject.transform.position = soliderConfig.position;
         solider.gameObject.transform.localScale = soliderConfig.size;
         solider.Init(soliderConfig.soliderId);
         return solider;
