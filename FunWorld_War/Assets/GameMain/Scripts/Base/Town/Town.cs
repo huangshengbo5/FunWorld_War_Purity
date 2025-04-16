@@ -21,16 +21,16 @@ public partial class Town : BaseObject
     {
         RegisterEvent();
         StartCoroutine(DelayStart_Skill());
-        curSoliderNum = DefaultMaxSoliderNum;
+        spawnerSoliderNum = DefaultMaxSoliderNum;
     }
 
     private void ResetData()
     {
         CurHp = MaxHp;
-        curSoliderNum = DefaultMaxSoliderNum;
+        spawnerSoliderNum = DefaultMaxSoliderNum;
         DelegateTownCampChange.Invoke(Camp());
         DelegateTownHpChange.Invoke(CurHp,MaxHp);
-        DelegateTownSoliderNumChange(curSoliderNum, DefaultMaxSoliderNum);
+        DelegateTownSoliderNumChange(spawnerSoliderNum, DefaultMaxSoliderNum);
     }
     
     public void Init()
@@ -87,16 +87,18 @@ public partial class Town : BaseObject
     
     protected  SoliderCommander CreateSolider(Town targetTown)
     {
-        if (curSoliderNum  == 0)
+        if (spawnerSoliderNum  == 0)
         {
             return null;
         }
         List<Solider> Soliders = new List<Solider>();
-        for (int i = 0; i < curSoliderNum; i++)
+        for (int i = 0; i < spawnerSoliderNum; i++)
         {
             //var createSolider = CreateSolider(i); 
             //createSolider.Init();
-            var solider = BattleManager.Instance().Factory.Solider.Create(new SoliderFactory.SoliderConfig(1001001,GetSoliderPosition(),Vector3.one));
+            int soliderId = 1001001;
+            string soliderName = $"Solider_{campType.ToString()}_{soliderId}";
+            var solider = BattleManager.Instance().Factory.Solider.Create(new SoliderFactory.SoliderConfig(soliderId,soliderName,campType,GetSoliderPosition(),Vector3.one));
             Soliders.Add(solider);
             solider.CampType = this.Camp();
             if (TargetTown)

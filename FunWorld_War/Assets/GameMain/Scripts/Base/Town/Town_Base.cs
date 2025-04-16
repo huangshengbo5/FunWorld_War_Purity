@@ -12,15 +12,18 @@ using Random = UnityEngine.Random;
 
         [FormerlySerializedAs("ownerCamp")] public CampType campType = global::CampType.None;
         
-        protected int curSoliderNum;
+        protected int spawnerSoliderNum;
+
+        public int SpawnerSoliderNum => spawnerSoliderNum;
+
 
         public int CurSoliderNum
         {
-            get => curSoliderNum;
+            get => spawnerSoliderNum;
             set
             {
-                curSoliderNum = value;
-                DelegateTownSoliderNumChange.Invoke(curSoliderNum,DefaultMaxSoliderNum);
+                spawnerSoliderNum = value;
+                DelegateTownSoliderNumChange.Invoke(spawnerSoliderNum,DefaultMaxSoliderNum);
             }
         }
 

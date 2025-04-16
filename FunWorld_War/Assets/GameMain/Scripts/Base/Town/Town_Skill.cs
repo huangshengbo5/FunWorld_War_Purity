@@ -37,7 +37,7 @@ public partial class Town
             var combatActionParent = (CombatEntity)combatAction.Parent;
             BeAttack(combatActionParent.HeroObject.GetComponent<BaseObject>(),1);
         }
-        print($"Boss ReciveDamage:{damageAction.DamageValue}");
+        print($"Town ReciveDamage:{damageAction.DamageValue}");
         // var damageAction = combatAction as DamageAction;
         // HealthBarImage.fillAmount = CombatEntity.CurrentHealth.ToPercent();
         // var damageText = GameObject.Instantiate(DamageText);

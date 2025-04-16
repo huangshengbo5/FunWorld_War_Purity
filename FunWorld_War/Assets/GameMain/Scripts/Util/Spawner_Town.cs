@@ -40,6 +40,7 @@ public class Spawner_Town : MonoBehaviour
         townCom.campType = CampType;
         townCom.MaxHp = MaxHp;
         townCom.ViewRedius = ViewRedius;
+        townCom.DefaultMaxSoliderNum = DefaultMaxSoliderNum;
         townCom.Init();
         return town;
     }

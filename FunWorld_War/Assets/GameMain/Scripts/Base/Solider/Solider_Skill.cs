@@ -126,8 +126,9 @@ public partial class Solider
     {
         var damageAction = combatAction as DamageAction;
         var combatActionParent = (CombatEntity)combatAction.Parent;
+        //BeAttack(combatActionParent.HeroObject.GetComponent<BaseObject>(),damageAction.DamageValue);
         BeAttack(combatActionParent.HeroObject.GetComponent<BaseObject>(),1);
-        print($"Solider ReciveDamage:{damageAction.DamageValue}");
+        print($"Solider ReciveDamage:{1}");
         
         // var damageAction = combatAction as DamageAction;
         // HealthBarImage.fillAmount = CombatEntity.CurrentHealth.ToPercent();
@@ -227,6 +228,7 @@ public partial class Solider
     
     Ability CurSkill;
     //释放技能
+    //todo  释放时机有问题！！！！
     public void DoAttack()
     {
         if (CurSkill != null && CurSkill.Spelling)

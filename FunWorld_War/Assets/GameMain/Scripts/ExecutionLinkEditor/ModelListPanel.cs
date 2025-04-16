@@ -56,6 +56,8 @@ namespace EGamePlay
                  {
                      var solider = BattleManager.Instance().Factory.Solider.Create(new SoliderFactory.SoliderConfig
                          (config.Id,
+                             "solider",
+                             CampType.None,
                              new Vector3(0,0,0),
                              Vector3.one
                              ));
